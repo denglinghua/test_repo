@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Typography, TextField, Button, Box } from "@mui/material";
+import { Container, TextField, Button, Box } from "@mui/material";
 import useUserStore from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
@@ -44,6 +44,7 @@ const Login = () => {
             color="primary"
             type="submit"
             fullWidth
+            disabled={!username}
             style={{ marginTop: "1rem" }}
           >
             Login

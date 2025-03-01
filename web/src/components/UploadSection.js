@@ -30,7 +30,6 @@ const UploadSection = ({ onFileUpload }) => {
         flexDirection="column"
         alignItems="left"
         justifyContent="center"
-        minHeight="80vh"
       >
         <Typography variant="body1" gutterBottom style={{ marginBottom: "2rem" }}>
           Upload an Excel file({fileExtension}) that includes patient information and findings.
@@ -50,6 +49,7 @@ const UploadSection = ({ onFileUpload }) => {
               variant="contained"
               color="primary"
               type="submit"
+              disabled={!selectedFile}
               style={{ marginTop: "1rem" }}
             >
               Upload File
