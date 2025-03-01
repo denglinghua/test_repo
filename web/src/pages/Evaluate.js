@@ -10,13 +10,24 @@ const Evaluate = () => {
 
   const handleFileUpload = async (formData) => {
     const response = api.upload("/upload", formData).then((res) => {
-      setData(res.data);
+      setData(addEvaluationInfo(res.data));
       setCurrentStep("evaluate");
     });
   };
 
+  const addEvaluationInfo = function (data) {
+    data.forEach((item) => {
+      item.evaluation = {
+        clinicalAccuracy: 0,
+        overallQuality: 0,
+        comment: "",
+      };
+    });
+    return data;
+  }
+
   return (
-    <Container maxWidth="sm">
+    <Container>
       <Box
         display="flex"
         flexDirection="column"
