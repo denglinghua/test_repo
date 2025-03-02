@@ -12,7 +12,7 @@ async function upload(req, res) {
   }
 
   const fileName = path.basename(filePath);
-  db.insertFile(fileName, req.user.username, rows);
+  db.insertFile(fileName, req.file.originalname, req.user.username, rows);
 
   response.ok(res, "File uploaded successfully", {
     fileName: fileName,

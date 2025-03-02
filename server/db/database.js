@@ -15,6 +15,7 @@ function init() {
   db.exec(`
         CREATE TABLE IF NOT EXISTS files (
         filename TEXT PRIMARY KEY,
+        original_filename TEXT,
         creator TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
@@ -31,8 +32,8 @@ function init() {
         gender TEXT,
         reason_for_exam TEXT,
         age INTEGER,
-        accuracyRating INTEGER default 0,
-        qualityRating INTEGER default 0,
+        accuracy_rating INTEGER default 0,
+        quality_rating INTEGER default 0,
         comment TEXT default ''
         )
     `);
@@ -40,11 +41,11 @@ function init() {
   close(db);
 }
 
-async function insertFile(filename, creator, rows) {
+async function insertFile(filename, originalName, creator, rows) {
   const db = open();
 
   const insertFile = db.prepare(
-    "INSERT INTO files (filename, creator) VALUES (?, ?)"
+    "INSERT INTO files (filename,  original_filename, creator) VALUES (?, ?, ?)"
   );
 
   const insertEvaluation = db.prepare(
@@ -68,7 +69,7 @@ async function insertFile(filename, creator, rows) {
   });
 
   const insertAll = db.transaction((rows) => {
-    insertFile.run(filename, creator);
+    insertFile.run(filename, originalName, creator);
     insertEvals(rows); // nested transaction
   });
 
@@ -86,7 +87,7 @@ function updateEvaluation(
 ) {
   const db = open();
   const update = db.prepare(
-    "UPDATE evaluations SET accuracyRating = ?, qualityRating = ?, comment = ? WHERE filename = ? and id = ?"
+    "UPDATE evaluations SET accuracy_rating = ?, quality_rating = ?, comment = ? WHERE filename = ? and id = ?"
   );
   update.run(accuracyRating, qualityRating, comment, filename, id);
   close(db);
