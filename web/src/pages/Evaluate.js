@@ -9,12 +9,10 @@ const Evaluate = () => {
   const [currentStep, setCurrentStep] = useState("upload");
   const [fileInfo, setFileInfo] = useState([]);
 
-  const handleFileUpload = async (formData) => {
-    const response = api.upload("/upload", formData).then((res) => {
-      addEvaluationInfo(res.data.rows);
-      setFileInfo(res.data);
-      setCurrentStep("evaluate");
-    });
+  const handleUploadComplete = async (data) => {
+    addEvaluationInfo(data.rows);
+    setFileInfo(data);
+    setCurrentStep("evaluate");
   };
 
   const addEvaluationInfo = function (rows) {
@@ -30,7 +28,7 @@ const Evaluate = () => {
 
   const handleEvaluationComplete = () => {
     setCurrentStep("export");
-  }
+  };
 
   return (
     <Container>
@@ -42,10 +40,15 @@ const Evaluate = () => {
         minHeight="80vh"
       >
         {currentStep === "upload" && (
-          <UploadSection onFileUpload={handleFileUpload} />
+          <UploadSection onComplete={handleUploadComplete} />
         )}
 
-        {currentStep === "evaluate" && <EvaluateSection file={fileInfo} onComplete={handleEvaluationComplete} />}
+        {currentStep === "evaluate" && (
+          <EvaluateSection
+            file={fileInfo}
+            onComplete={handleEvaluationComplete}
+          />
+        )}
 
         {currentStep === "export" && <ExportSection file={fileInfo} />}
       </Box>

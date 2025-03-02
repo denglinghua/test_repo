@@ -8,7 +8,7 @@ async function upload(req, res) {
 
   const rows = excel.parse(filePath);
   if (!rows) {
-    return response.error(res, 1, "Failed to parse the file");
+    return response.error(res, 1, "Failed to parse the file, please check the file format.");
   }
 
   const fileName = path.basename(filePath);

@@ -7,6 +7,7 @@ import api from "../utils/api";
 const Login = () => {
   const [username, setUsername] = useState("");
   const setUser = useUserStore((state) => state.setUser);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
@@ -17,6 +18,10 @@ const Login = () => {
       api.setAuthToken(res.data.token);
 
       navigate("/evaluate");
+    }).catch((err) => {
+      if (err.code === 1) {
+        setError(err.msg);
+      }
     });
   };
 
@@ -36,6 +41,8 @@ const Login = () => {
             margin="normal"
             fullWidth
             required
+            error={!!error}
+            helperText={error}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
