@@ -8,7 +8,6 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/evaluate" element={<Evaluate />} />
             <Route path="*" element={<NotFound />} />
         </Routes>

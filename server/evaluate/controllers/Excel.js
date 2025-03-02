@@ -40,4 +40,4 @@ function parse(filePath) {
   }
 }
 
-export default { parse, exportExcel };
+export default { parse };

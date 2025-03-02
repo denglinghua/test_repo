@@ -6,7 +6,9 @@ import {
   AppBar,
   Toolbar,
   CssBaseline,
+  IconButton,
 } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { BrowserRouter as Router } from "react-router-dom";
 import useUserStore from "./stores/userStore";
 import "./styles/App.css";
@@ -14,6 +16,25 @@ import AppRoutes from "./routes";
 
 const App = () => {
   const username = useUserStore((state) => state.username);
+  const clearUser = useUserStore((state) => state.clearUser);
+
+  const checkAuth = () => {
+    // if current route is not login and user is not logged in, redirect to login
+    if (window.location.pathname !== "/" && !username) {
+      gotoLogin();
+    }
+  };
+
+  const handleLogout = () => {
+    clearUser();
+    gotoLogin();
+  };
+
+  const gotoLogin = () => {
+    window.location.href = "/";
+  };
+
+  checkAuth();
 
   return (
     <Router>
@@ -27,6 +48,13 @@ const App = () => {
             {username && (
               <Box display="flex" alignItems="center">
                 <Typography variant="h6">Welcome, {username}</Typography>
+                <IconButton
+                  color="inherit"
+                  onClick={handleLogout}
+                  aria-label="logout"
+                >
+                  <LogoutIcon />
+                </IconButton>
               </Box>
             )}
           </Toolbar>

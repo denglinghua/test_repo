@@ -1,6 +1,7 @@
 import axios from "axios";
 
-let apiURL = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "";
+let apiURL =
+  process.env.NODE_ENV === "development" ? "http://localhost:3001" : "";
 const axs = axios.create({ baseURL: apiURL });
 
 function request(method, url, param = null, notify) {
@@ -28,15 +29,13 @@ function request(method, url, param = null, notify) {
       .then((res) => {
         logResponse(res);
         const code = res.data.code;
-        switch (code) {
-          case 0:
-            resolve(res.data);
-            break;
-          default:
-            // business logic error which need to be handled in business logic code
-            // so what reject do is about business logic error represent by error code (HTTP status is 200)
-            // instead of exception caused by http response which HTTP status is not 200
-            reject(res.data);
+        if (code === 0) {
+          resolve(res.data);
+        } else {
+          // business logic error which need to be handled in business logic code
+          // so what reject do is about business logic error represent by error code (HTTP status is 200)
+          // instead of exception caused by http response which HTTP status is not 200
+          reject(res.data);
         }
       })
       .catch((err) => {
@@ -61,12 +60,11 @@ function logResponse(res) {
 function handleErrStatus(status, router) {
   switch (status) {
     case 401:
+    case 403:
       handleUnLogin(router);
       break;
-    case 403:
-    case 404:
-    case 500:
     default:
+      // unknown error
   }
 }
 
@@ -78,7 +76,9 @@ function notifyOk(msg) {}
 
 function notifyErr(msg) {}
 
-function handleUnLogin(router) {}
+function handleUnLogin() {
+  window.location.href = "/";
+}
 
 function setAuthToken(token) {
   axs.defaults.headers.common["Authorization"] = `Bearer ${token}`;
