@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -7,6 +7,8 @@ import {
   Button,
   Rating,
   Divider,
+  FormControl,
+  FormHelperText,
 } from "@mui/material";
 import api from "../utils/api";
 
@@ -15,6 +17,7 @@ const EvaluateSection = ({ file, onComplete }) => {
   const [accuracyRating, setAccuracyRating] = useState(0);
   const [qualityRating, setQualityRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [error, setError] = useState("");
   const { fileName, rows } = file;
   const curRow = rows[rowIndex];
   const total = rows.length;
@@ -28,9 +31,20 @@ const EvaluateSection = ({ file, onComplete }) => {
     }
   }, [rowIndex, rows]);
 
+  const checkRating = () => {
+    if (accuracyRating === 0 || qualityRating === 0) {
+      setError("Please score the accuracy and quality before moving on.");
+      return false;
+    }
+    return true;
+  };
+
   const handleNext = () => {
-    updateEvaluation();
-    setRowIndex(rowIndex + 1);
+    if (!checkRating()) {
+      return;
+    }
+
+    switchRow(rowIndex + 1);
 
     if (rowIndex === total - 1) {
       onComplete();
@@ -38,11 +52,25 @@ const EvaluateSection = ({ file, onComplete }) => {
   };
 
   const handlePrevious = () => {
+    switchRow(rowIndex - 1);
+  };
+
+  const switchRow = (index) => {
     updateEvaluation();
-    setRowIndex(rowIndex - 1);
+    setRowIndex(index);
+    setError("");
   };
 
   const updateEvaluation = () => {
+    // check evaluation changed
+    if (
+      accuracyRating === curRow.evaluation.accuracyRating &&
+      qualityRating === curRow.evaluation.qualityRating &&
+      comment === curRow.evaluation.comment
+    ) {
+      console.log("No change in evaluation");
+      return;
+    }
     curRow.evaluation = { accuracyRating, qualityRating, comment };
     saveEvaluation();
   };
@@ -86,22 +114,31 @@ const EvaluateSection = ({ file, onComplete }) => {
               </Typography>
             </Box>
             <Box mt={2}>
-              {Object.entries(curRow).filter(([key]) => key !== "evaluation").map(([key, value]) => (
-                <Typography key={key} variant="body1" gutterBottom>
-                  <strong>{key}:</strong> {value}
-                </Typography>
-              ))}
+              {Object.entries(curRow)
+                .filter(([key]) => key !== "evaluation")
+                .map(([key, value]) => (
+                  <Typography key={key} variant="body1" gutterBottom>
+                    <strong>{key}:</strong> {value}
+                  </Typography>
+                ))}
             </Box>
           </Box>
         )}
       </Box>
       <Divider />
-      <Box mt={2} display="flex" justifyContent="left">
+      <FormControl error={!!error}>
+        {error && (
+          <Typography variant="body2" color="error" gutterBottom mt={2}>
+            {error}
+          </Typography>
+        )}
+      </FormControl>
+      <Box display="flex" justifyContent="left">
         <Typography gutterBottom>
           <strong>Clinical Accuracy:</strong>
         </Typography>
         <Rating
-          name='accuracyRating'
+          name="accuracyRating"
           value={accuracyRating}
           onChange={(event, newValue) => {
             setAccuracyRating(newValue);
@@ -111,11 +148,11 @@ const EvaluateSection = ({ file, onComplete }) => {
           <strong>Overall Quality:</strong>
         </Typography>
         <Rating
-          name='qualityRating'
+          name="qualityRating"
           value={qualityRating}
           onChange={(event, newValue) => {
             setQualityRating(newValue);
-          }}  
+          }}
         />
       </Box>
       <Box>
@@ -123,7 +160,7 @@ const EvaluateSection = ({ file, onComplete }) => {
           <strong>Comment:</strong>
         </Typography>
         <textarea
-          name='comment'
+          name="comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           rows="6"

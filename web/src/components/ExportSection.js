@@ -41,8 +41,7 @@ const ExportSection = ({ file }) => {
           gutterBottom
           style={{ marginBottom: "2rem" }}
         >
-          All records have been successfully evaluated. You can now export the
-          results.
+          All records have been successfully scored. You can now export the results.
         </Typography>
 
         <Button
