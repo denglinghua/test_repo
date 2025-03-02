@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Box, IconButton, Tooltip } from "@mui/material";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import UploadSection from "../components/UploadSection";
 import EvaluateSection from "../components/EvaluateSection";
 import ExportSection from "../components/ExportSection";
@@ -47,7 +47,7 @@ const Evaluate = () => {
         {currentStep !== "upload" && (
           <Tooltip title="Upload another file" placement="bottom">
             <IconButton onClick={handleGotoUpload}>
-              <ArrowCircleLeftIcon style={{ fontSize: 40 }} />
+              <CloudUploadIcon style={{ fontSize: 40 }} />
             </IconButton>
           </Tooltip>
         )}

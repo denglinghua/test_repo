@@ -105,7 +105,7 @@ const EvaluateSection = ({ file, onComplete }) => {
           },
         }}
       />
-      <Box mt={2} mb={2}>
+      <Box>
         {rows.length > 0 && (
           <Box>
             <Box display="flex" justifyContent="center" mt={2} mb={2}>
@@ -163,7 +163,7 @@ const EvaluateSection = ({ file, onComplete }) => {
           name="comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          rows="6"
+          rows="5"
           cols="64"
           placeholder="Enter your comment here..."
         />
