@@ -1,7 +1,7 @@
 import axios from "axios";
 
-let apiURL =
-  process.env.NODE_ENV === "development" ? "http://localhost:3001" : "";
+const isDev = process.env.NODE_ENV === "development";
+let apiURL = isDev ? "http://localhost:3001" : "";
 const axs = axios.create({ baseURL: apiURL });
 
 function request(method, url, param = null) {
@@ -81,6 +81,9 @@ function handleUnLogin() {
 }
 
 function gotoError() {
+  if (isDev) {
+    return;
+  }
   window.location.href = "/error";
 }
 
