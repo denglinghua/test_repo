@@ -1,7 +1,9 @@
 import express from "express";
 import multer from "multer";
 import crypto from "crypto";
+import schemaValidator from "../common/middlewares/SchemaValidationMiddleware.js";
 import evaluateController from "./controllers/EvaluateController.js";
+import evaluatePayload from "./schemas/evaluatePayload.js";
 
 const router = express.Router();
 
@@ -30,6 +32,7 @@ router.post(
 
 router.post(
   "/evaluate",
+  schemaValidator.verify(evaluatePayload),
   evaluateController.evaluate
 );
 
