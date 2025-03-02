@@ -8,40 +8,50 @@ import {
   Rating,
   Divider,
 } from "@mui/material";
+import api from "../utils/api";
 
-const EvaluateSection = ({ data }) => {
-  const [row, setRow] = useState(0);
+const EvaluateSection = ({ file, onComplete }) => {
+  const [rowIndex, setRowIndex] = useState(0);
   const [accuracyRating, setAccuracyRating] = useState(0);
   const [qualityRating, setQualityRating] = useState(0);
   const [comment, setComment] = useState("");
-  const rowData = data[row];
-  const total = data.length;
+  const { fileName, rows } = file;
+  const curRow = rows[rowIndex];
+  const total = rows.length;
 
   useEffect(() => {
-    if (data.length > 0) {
-      const { evaluation } = data[row];
+    if (rows.length > 0) {
+      const { evaluation } = rows[rowIndex];
       setAccuracyRating(evaluation.accuracyRating);
       setQualityRating(evaluation.qualityRating);
       setComment(evaluation.comment);
     }
-  }, [row, data]);
+  }, [rowIndex, rows]);
 
   const handleNext = () => {
-    saveEvaluation();
-    setRow(row + 1);
-    
+    updateEvaluation();
+    setRowIndex(rowIndex + 1);
+
+    if (rowIndex === total - 1) {
+      onComplete();
+    }
   };
 
   const handlePrevious = () => {
+    updateEvaluation();
+    setRowIndex(rowIndex - 1);
+  };
+
+  const updateEvaluation = () => {
+    curRow.evaluation = { accuracyRating, qualityRating, comment };
     saveEvaluation();
-    setRow(row - 1);
   };
 
   const saveEvaluation = () => {
-    rowData.evaluation = { accuracyRating, qualityRating, comment };
+    api.post("/evaluate", { fileName, rowIndex, ...curRow.evaluation });
   };
 
-  const progress = (row / total) * 100;
+  const progress = (rowIndex / total) * 100;
 
   return (
     <Container maxWidth="lg">
@@ -60,7 +70,7 @@ const EvaluateSection = ({ data }) => {
         variant="determinate"
         value={progress}
         sx={{
-          height: 10,
+          height: 15,
           backgroundColor: "#e0e0e0",
           "& .MuiLinearProgress-bar": {
             backgroundColor: "#3f51b5",
@@ -68,15 +78,15 @@ const EvaluateSection = ({ data }) => {
         }}
       />
       <Box mt={2} mb={2}>
-        {data.length > 0 && (
+        {rows.length > 0 && (
           <Box>
             <Box display="flex" justifyContent="center" mt={2} mb={2}>
               <Typography>
-                {row + 1} / {total}
+                {rowIndex} / {total}
               </Typography>
             </Box>
             <Box mt={2}>
-              {Object.entries(rowData).filter(([key]) => key !== "evaluation").map(([key, value]) => (
+              {Object.entries(curRow).filter(([key]) => key !== "evaluation").map(([key, value]) => (
                 <Typography key={key} variant="body1" gutterBottom>
                   <strong>{key}:</strong> {value}
                 </Typography>
@@ -126,7 +136,7 @@ const EvaluateSection = ({ data }) => {
           variant="contained"
           color="secondary"
           onClick={handlePrevious}
-          disabled={row === 0}
+          disabled={rowIndex === 0}
         >
           Previous
         </Button>
@@ -134,7 +144,7 @@ const EvaluateSection = ({ data }) => {
           variant="contained"
           color="secondary"
           onClick={handleNext}
-          disabled={row === total}
+          disabled={rowIndex === total}
         >
           Next
         </Button>

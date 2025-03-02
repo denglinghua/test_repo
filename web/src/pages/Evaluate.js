@@ -1,29 +1,35 @@
 import React, { useState } from "react";
-import { Container, Typography, Box, Button, Input } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import UploadSection from "../components/UploadSection";
 import EvaluateSection from "../components/EvaluateSection";
+import ExportSection from "../components/ExportSection";
 import api from "../utils/api";
 
 const Evaluate = () => {
   const [currentStep, setCurrentStep] = useState("upload");
-  const [data, setData] = useState([]);
+  const [fileInfo, setFileInfo] = useState([]);
 
   const handleFileUpload = async (formData) => {
     const response = api.upload("/upload", formData).then((res) => {
-      setData(addEvaluationInfo(res.data));
+      addEvaluationInfo(res.data.rows);
+      setFileInfo(res.data);
       setCurrentStep("evaluate");
     });
   };
 
-  const addEvaluationInfo = function (data) {
-    data.forEach((item) => {
-      item.evaluation = {
-        clinicalAccuracy: 0,
-        overallQuality: 0,
+  const addEvaluationInfo = function (rows) {
+    rows.forEach((row) => {
+      row.evaluation = {
+        accuracyRating: 0,
+        qualityRating: 0,
         comment: "",
       };
     });
-    return data;
+    return rows;
+  };
+
+  const handleEvaluationComplete = () => {
+    setCurrentStep("export");
   }
 
   return (
@@ -35,15 +41,13 @@ const Evaluate = () => {
         justifyContent="center"
         minHeight="80vh"
       >
-        {currentStep === "upload" && <UploadSection onFileUpload={handleFileUpload} />}
-
-        {currentStep === "evaluate" && <EvaluateSection data={data} />}
-
-        {currentStep === "export" && (
-          <Typography variant="h4" gutterBottom>
-            Export Page
-          </Typography>
+        {currentStep === "upload" && (
+          <UploadSection onFileUpload={handleFileUpload} />
         )}
+
+        {currentStep === "evaluate" && <EvaluateSection file={fileInfo} onComplete={handleEvaluationComplete} />}
+
+        {currentStep === "export" && <ExportSection file={fileInfo} />}
       </Box>
     </Container>
   );

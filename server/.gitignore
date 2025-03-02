@@ -80,3 +80,6 @@ dist
 
 # upload files
 uploads/
+
+# database
+*.db

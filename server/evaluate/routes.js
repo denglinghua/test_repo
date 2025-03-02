@@ -9,7 +9,7 @@ function generateUniqueFileName(file) {
   const originalName = file.originalname;
   const fileName = originalName.substring(0, originalName.lastIndexOf('.'));
   const extension = originalName.substring(originalName.lastIndexOf('.'));
-  const hash = crypto.createHash('sha1').digest('hex');
+  const hash = crypto.randomBytes(16).toString('hex');
   return `${fileName}-${hash}${extension}`;
 }
 
@@ -26,6 +26,16 @@ router.post(
   "/upload",
   upload.single("file"),
   evaluateController.upload
+);
+
+router.post(
+  "/evaluate",
+  evaluateController.evaluate
+);
+
+router.get(
+  "/result",
+  evaluateController.getResult
 );
 
 export default router;

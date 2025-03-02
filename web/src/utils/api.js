@@ -85,7 +85,7 @@ function setAuthToken(token) {
 }
 
 function get(url, params) {
-  return request("get", url, params, {});
+  return request("get", url, { params: params }, {});
 }
 
 function post(url, params) {

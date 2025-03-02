@@ -1,23 +1,48 @@
+import path from "path";
 import response from "../../common/response.js";
-import parse from "./FileParser.js";
+import excel from "./Excel.js";
+import db from "../../db/database.js";
 
 async function upload(req, res) {
   const filePath = req.file.path;
 
-  const data = parse(filePath);
-  if (!data) {
+  const rows = excel.parse(filePath);
+  if (!rows) {
     return response.error(res, 1, "Failed to parse the file");
   }
 
-  response.ok(res, "File uploaded successfully", data);
+  const fileName = path.basename(filePath);
+  db.insertFile(fileName, req.user.username, rows);
+
+  response.ok(res, "File uploaded successfully", {
+    fileName: fileName,
+    rows: rows,
+  });
 }
 
-async function evaluate(req, res) {}
+async function evaluate(req, res) {
+  const { fileName, rowIndex, accuracyRating, qualityRating, comment } = req.body;
+  db.updateEvaluation(fileName, rowIndex, accuracyRating, qualityRating, comment);
+  response.ok(res, "Evaluation updated successfully");
+}
 
-async function exportResult(req, res) {}
+async function getResult(req, res) {
+  const fileName = req.query.fileName;
+  const file = db.getFile(fileName);
+  if (!file) {
+    return response.error(res, 1, "File not found");
+  }
+
+  const evaluations = db.getEvaluations(fileName);
+  
+  response.ok(res, "Evaluations retrieved successfully", {
+    file: file,
+    rows: evaluations,
+  });
+}
 
 export default {
   upload,
   evaluate,
-  exportResult,
+  getResult,
 };

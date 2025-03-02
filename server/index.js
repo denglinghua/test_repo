@@ -8,6 +8,8 @@ import evaluateRoutes from "./evaluate/routes.js";
 import authMiddleware from "./common/middlewares/IsAuthenticatedMiddleware.js";
 import globalError from "./common/middlewares/GlobalErrorHandleMiddleware.js";
 import logger from "./common/logger.js";
+import db from "./db/database.js";
+
 const app = express();
 
 const port = process.env.PORT || config.port;
@@ -30,6 +32,8 @@ app.use("/", evaluateRoutes);
 
 // global error handler, keep this at the end of the middleware stack
 app.use(globalError);
+
+db.init();
 
 app.listen(port, () => {
   logger.info("Server Listening on PORT:", port);
