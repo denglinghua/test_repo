@@ -5,6 +5,7 @@ import db from "../../db/database.js";
 
 async function upload(req, res) {
   const filePath = req.file.path;
+  const originalName = req.file.originalname;
 
   const rows = excel.parse(filePath);
   if (!rows) {
@@ -12,10 +13,11 @@ async function upload(req, res) {
   }
 
   const fileName = path.basename(filePath);
-  db.insertFile(fileName, req.file.originalname, req.user.username, rows);
+  db.insertFile(fileName, originalName, req.user.username, rows);
 
   response.ok(res, "File uploaded successfully", {
     fileName: fileName,
+    originalName: originalName,
     rows: rows,
   });
 }

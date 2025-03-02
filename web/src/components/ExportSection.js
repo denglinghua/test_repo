@@ -19,9 +19,18 @@ const ExportSection = ({ file }) => {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
     });
 
-    saveAs(blob, "export.xlsx");
+    saveAs(blob, createExportFileName(file.originalName));
 
     setOpen(true);
+  };
+
+  const createExportFileName = (originalName) => {
+    const lastDotIndex = originalName.lastIndexOf(".");
+    const baseName = originalName.substring(0, lastDotIndex);
+    const ext = originalName.substring(lastDotIndex + 1);
+    const date = new Date();
+    const formattedDate = date.toISOString().replace(/[-:T]/g, "").split(".")[0];
+    return `${baseName}_${formattedDate}_evaluation.${ext}`;
   };
 
   const transformData = (rows) => {
