@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Container, Box } from "@mui/material";
+import { Container, Box, IconButton, Tooltip } from "@mui/material";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import UploadSection from "../components/UploadSection";
 import EvaluateSection from "../components/EvaluateSection";
 import ExportSection from "../components/ExportSection";
-import api from "../utils/api";
 
 const Evaluate = () => {
   const [currentStep, setCurrentStep] = useState("upload");
@@ -30,27 +30,46 @@ const Evaluate = () => {
     setCurrentStep("export");
   };
 
+  const handleGotoUpload = () => {
+    setCurrentStep("upload");
+    setFileInfo([]);
+  };
+
   return (
     <Container>
       <Box
         display="flex"
-        flexDirection="column"
+        flexDirection="row"
         alignItems="center"
         justifyContent="center"
         minHeight="80vh"
       >
-        {currentStep === "upload" && (
-          <UploadSection onComplete={handleUploadComplete} />
+        {currentStep !== "upload" && (
+          <Tooltip title="Upload another file" placement="bottom">
+            <IconButton onClick={handleGotoUpload}>
+              <ArrowCircleLeftIcon style={{ fontSize: 40 }} />
+            </IconButton>
+          </Tooltip>
         )}
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {currentStep === "upload" && (
+            <UploadSection onComplete={handleUploadComplete} />
+          )}
 
-        {currentStep === "evaluate" && (
-          <EvaluateSection
-            file={fileInfo}
-            onComplete={handleEvaluationComplete}
-          />
-        )}
+          {currentStep === "evaluate" && (
+            <EvaluateSection
+              file={fileInfo}
+              onComplete={handleEvaluationComplete}
+            />
+          )}
 
-        {currentStep === "export" && <ExportSection file={fileInfo} />}
+          {currentStep === "export" && <ExportSection file={fileInfo} />}
+        </Box>
       </Box>
     </Container>
   );
