@@ -61,6 +61,7 @@ const EvaluateSection = ({ file, onComplete }) => {
     setError("");
   };
 
+  // try to save changed evaluation when switching to row, no matter next or previous
   const updateEvaluation = () => {
     // check evaluation changed
     if (
@@ -83,13 +84,7 @@ const EvaluateSection = ({ file, onComplete }) => {
 
   return (
     <Container maxWidth="lg">
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        mt={2}
-      >
+      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={2}>
         <Typography variant="h5" gutterBottom>
           Evaluate
         </Typography>
@@ -169,20 +164,10 @@ const EvaluateSection = ({ file, onComplete }) => {
         />
       </Box>
       <Box display="flex" justifyContent="space-between" width="100%" mt={2}>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handlePrevious}
-          disabled={rowIndex === 0}
-        >
+        <Button variant="contained" color="secondary" onClick={handlePrevious} disabled={rowIndex === 0}>
           Previous
         </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleNext}
-          disabled={rowIndex === total}
-        >
+        <Button variant="contained" color="secondary" onClick={handleNext} disabled={rowIndex === total}>
           Next
         </Button>
       </Box>
