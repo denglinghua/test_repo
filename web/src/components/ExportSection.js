@@ -56,7 +56,7 @@ const ExportSection = ({ file }) => {
 
   return (
     <Container maxWidth="md">
-      <Box display="flex" flexDirection="column" alignItems="left" justifyContent="center">
+      <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center">
         <Typography variant="body1" gutterBottom style={{ marginBottom: "2rem" }}>
           All records have been successfully scored. You can now export the results.
         </Typography>
@@ -69,10 +69,10 @@ const ExportSection = ({ file }) => {
       <Snackbar
         open={open}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        autoHideDuration={3000}
+        autoHideDuration={2000}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+        <Alert severity="success" sx={{ width: "100%" }}>
           Export successful!
         </Alert>
       </Snackbar>

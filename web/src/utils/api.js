@@ -4,7 +4,7 @@ let apiURL =
   process.env.NODE_ENV === "development" ? "http://localhost:3001" : "";
 const axs = axios.create({ baseURL: apiURL });
 
-function request(method, url, param = null, notify) {
+function request(method, url, param = null) {
   let call;
   let header = {};
   if (method == "get") {
@@ -41,10 +41,10 @@ function request(method, url, param = null, notify) {
       .catch((err) => {
         // http request error(non 200 status) OR the above code block javascript error
         if (err.response) {
-          handleErrStatus(err.response.status, null);
+          handleErrStatus(err.response.status);
         }
         logResponseError(err);
-        notifyErr(notify.err);
+        gotoError();
       });
   });
 }
@@ -57,14 +57,14 @@ function logResponse(res) {
   console.log(`↓ ${res.data.msg}`, res.data);
 }
 
-function handleErrStatus(status, router) {
+function handleErrStatus(status) {
   switch (status) {
     case 401:
     case 403:
-      handleUnLogin(router);
+      handleUnLogin();
       break;
     default:
-      // unknown error
+      break;
   }
 }
 
@@ -80,20 +80,24 @@ function handleUnLogin() {
   window.location.href = "/";
 }
 
+function gotoError() {
+  window.location.href = "/error";
+}
+
 function setAuthToken(token) {
   axs.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
 function get(url, params) {
-  return request("get", url, { params: params }, {});
+  return request("get", url, { params: params });
 }
 
 function post(url, params) {
-  return request("post", url, params, {});
+  return request("post", url, params);
 }
 
 function upload(url, fileData) {
-  return request("upload", url, fileData, {});
+  return request("upload", url, fileData);
 }
 
 export default { get, post, upload, setAuthToken };

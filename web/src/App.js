@@ -19,8 +19,9 @@ const App = () => {
   const clearUser = useUserStore((state) => state.clearUser);
 
   const checkAuth = () => {
-    // if current route is not login and user is not logged in, redirect to login
-    if (window.location.pathname !== "/" && !username) {
+    const noAuthRoutes = ["/", "/error"];
+    const isNoAuthRoute = noAuthRoutes.includes(window.location.pathname);
+    if (!isNoAuthRoute && !username) {
       gotoLogin();
     }
   };
