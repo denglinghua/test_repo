@@ -32,6 +32,12 @@ public class ReportFile
         using (ExcelPackage package = new ExcelPackage(new FileInfo(FileName)))
         {
             ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+
+            if (!VerifySchema(worksheet))
+            {
+                throw new Exception("Invalid schema");
+            }
+
             int rowCount = worksheet.Dimension.Rows;
             for (int row = 2; row <= rowCount; row++)
             {
@@ -41,19 +47,37 @@ public class ReportFile
                 {
                     break;
                 }
-                string findings = worksheet.Cells[row, colIndex++].Value.ToString();
-                string impressionA = worksheet.Cells[row, colIndex++].Value.ToString();
-                string impressionB = worksheet.Cells[row, colIndex++].Value.ToString();
-                string ethnicity = worksheet.Cells[row, colIndex++].Value.ToString();
-                string gender = worksheet.Cells[row, colIndex++].Value.ToString();
-                string reasonForExam = worksheet.Cells[row, colIndex++].Value.ToString();
-                string age = worksheet.Cells[row, colIndex++].Value.ToString();
+                string findings = GetCellValue(worksheet, row, colIndex++);
+                string impressionA = GetCellValue(worksheet, row, colIndex++);
+                string impressionB = GetCellValue(worksheet, row, colIndex++);
+                string ethnicity = GetCellValue(worksheet, row, colIndex++);
+                string gender = GetCellValue(worksheet, row, colIndex++);
+                string reasonForExam = GetCellValue(worksheet, row, colIndex++);
+                string age = GetCellValue(worksheet, row, colIndex++);
 
                 Row r = new Row(findings, impressionA, impressionB, ethnicity, gender, reasonForExam, age);
                 rows.Add(r);
             }
         }
+    }
 
+    private bool VerifySchema(ExcelWorksheet worksheet)
+    {
+        int colIndex = 1;
+        foreach (string column in Columns)
+        {
+            if (worksheet.Cells[1, colIndex++].Value.ToString() != column)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private string GetCellValue(ExcelWorksheet worksheet, int row, int col)
+    {
+        Object obj = worksheet.Cells[row, col].Value;
+        return obj == null ? "" : obj.ToString();
     }
 
     public void SaveFile(string saveFolder)
@@ -61,9 +85,11 @@ public class ReportFile
         using (ExcelPackage excel = new ExcelPackage())
         {
             excel.Workbook.Worksheets.Add("Worksheet1");
+            
             var headerRow = new List<string[]>();
-            headerRow.Add(Columns.ToArray());
-            headerRow.Add(new string[] { "Clinical Accuracy", "Overall Quality", "Comment" });
+            List<string> newCols = new List<string>(Columns);
+            newCols.AddRange(new string[] { "Clinical Accuracy", "Overall Quality", "Comment" });
+            headerRow.Add(newCols.ToArray());
 
             var worksheet = excel.Workbook.Worksheets["Worksheet1"];
             worksheet.Cells["A1"].LoadFromArrays(headerRow);

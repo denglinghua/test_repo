@@ -42,7 +42,6 @@ namespace RadiologyReportEvaluation
             this.rowIndex++;
             if (this.rowIndex == this.totalRows)
             {
-                MessageBox.Show("All reports have been scored.");
                 this.NavForm("export");
                 return;
             }

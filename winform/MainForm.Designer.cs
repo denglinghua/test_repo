@@ -36,7 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1976, 2124);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = " Radiology Report Evaluation Tool";
             this.ResumeLayout(false);
 
         }

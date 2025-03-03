@@ -44,7 +44,23 @@ namespace RadiologyReportEvaluation
 
             }
 
-            ReportFile.Instance.LoadFile(fileName);
+            try
+            {
+                ReportFile.Instance.LoadFile(fileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to parse the file, please check the file format.");
+                return;
+            }
+
+            bool hasData = ReportFile.Instance.GetRows().Count > 0;
+            if (!hasData)
+            {
+                MessageBox.Show("No data found in the file.");
+                return;
+            }
+
             this.NavForm("score");
         }
 
