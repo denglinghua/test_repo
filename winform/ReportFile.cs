@@ -112,6 +112,8 @@ public class ReportFile
                 row++;
             }
 
+            worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns(10, 50);
+
             FileInfo file = new FileInfo(Path.Combine(saveFolder, CreateExportFileName()));
 
             excel.SaveAs(file);
