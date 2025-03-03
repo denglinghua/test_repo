@@ -26,6 +26,8 @@ namespace RadiologyReportEvaluation
 
             this.Controls.Add(tableLayoutPanel);
 
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+
             Start();
             
         }
