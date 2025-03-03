@@ -100,5 +100,10 @@ namespace RadiologyReportEvaluation
             row.QualityRating = this.ratingQuality.Value;
             row.Comment = this.textBoxComment.Text;
         }
+
+        private void buttonUpload_Click(object sender, EventArgs e)
+        {
+            this.NavForm("upload");
+        }
     }
 }

@@ -53,6 +53,7 @@
             this.labelAccuracy = new System.Windows.Forms.Label();
             this.buttonPrevious = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonUpload = new System.Windows.Forms.Button();
             this.groupBoxInfo.SuspendLayout();
             this.groupBoxScores.SuspendLayout();
             this.SuspendLayout();
@@ -323,10 +324,21 @@
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
+            // buttonUpload
+            // 
+            this.buttonUpload.Location = new System.Drawing.Point(44, 1678);
+            this.buttonUpload.Name = "buttonUpload";
+            this.buttonUpload.Size = new System.Drawing.Size(241, 61);
+            this.buttonUpload.TabIndex = 5;
+            this.buttonUpload.Text = "Upload Another File";
+            this.buttonUpload.UseVisualStyleBackColor = true;
+            this.buttonUpload.Click += new System.EventHandler(this.buttonUpload_Click);
+            // 
             // ScoreForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonUpload);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.buttonPrevious);
             this.Controls.Add(this.groupBoxScores);
@@ -370,5 +382,6 @@
         private System.Windows.Forms.Label labelAge;
         private System.Windows.Forms.Label labelGenderValue;
         private System.Windows.Forms.Label labelGender;
+        private System.Windows.Forms.Button buttonUpload;
     }
 }
