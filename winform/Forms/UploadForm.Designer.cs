@@ -1,4 +1,4 @@
-﻿namespace RadiologyReportEvaluation
+﻿namespace RadiologyReportEvaluation.Forms
 {
     partial class UploadForm
     {

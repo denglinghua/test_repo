@@ -1,4 +1,4 @@
-﻿namespace RadiologyReportEvaluation
+﻿namespace RadiologyReportEvaluation.Forms
 {
     partial class ScoreForm
     {
@@ -47,9 +47,9 @@
             this.groupBoxScores = new System.Windows.Forms.GroupBox();
             this.textBoxComment = new System.Windows.Forms.TextBox();
             this.labelComment = new System.Windows.Forms.Label();
-            this.ratingQuality = new RadiologyReportEvaluation.RatingControl();
+            this.ratingQuality = new RadiologyReportEvaluation.Forms.RatingControl();
             this.labelQuality = new System.Windows.Forms.Label();
-            this.ratingAccuracy = new RadiologyReportEvaluation.RatingControl();
+            this.ratingAccuracy = new RadiologyReportEvaluation.Forms.RatingControl();
             this.labelAccuracy = new System.Windows.Forms.Label();
             this.buttonPrevious = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();

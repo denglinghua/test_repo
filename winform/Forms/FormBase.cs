@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace RadiologyReportEvaluation
+namespace RadiologyReportEvaluation.Forms
 {
     public delegate void FormSwitchEventHandler(object sender, FormSwitchEventArgs e);
 

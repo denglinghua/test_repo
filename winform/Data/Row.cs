@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RadiologyReportEvaluation
+namespace RadiologyReportEvaluation.Data
 {
     public class Row
     {

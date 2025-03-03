@@ -81,17 +81,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExportForm.cs">
+    <Compile Include="Forms\ExportForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ExportForm.Designer.cs">
+    <Compile Include="Forms\ExportForm.Designer.cs">
       <DependentUpon>ExportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormBase.cs" />
-    <Compile Include="LoginForm.cs">
+    <Compile Include="Forms\FormBase.cs" />
+    <Compile Include="Forms\LoginForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
+    <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -102,30 +102,30 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RatingControl.cs">
+    <Compile Include="Forms\RatingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RatingControl.Designer.cs">
+    <Compile Include="Forms\RatingControl.Designer.cs">
       <DependentUpon>RatingControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReportFile.cs" />
-    <Compile Include="Row.cs" />
-    <Compile Include="ScoreForm.cs">
+    <Compile Include="Data\ReportFile.cs" />
+    <Compile Include="Data\Row.cs" />
+    <Compile Include="Forms\ScoreForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ScoreForm.Designer.cs">
+    <Compile Include="Forms\ScoreForm.Designer.cs">
       <DependentUpon>ScoreForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UploadForm.cs">
+    <Compile Include="Forms\UploadForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UploadForm.Designer.cs">
+    <Compile Include="Forms\UploadForm.Designer.cs">
       <DependentUpon>UploadForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ExportForm.resx">
+    <EmbeddedResource Include="Forms\ExportForm.resx">
       <DependentUpon>ExportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
+    <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -140,13 +140,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RatingControl.resx">
+    <EmbeddedResource Include="Forms\RatingControl.resx">
       <DependentUpon>RatingControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScoreForm.resx">
+    <EmbeddedResource Include="Forms\ScoreForm.resx">
       <DependentUpon>ScoreForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UploadForm.resx">
+    <EmbeddedResource Include="Forms\UploadForm.resx">
       <DependentUpon>UploadForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include=".gitignore" />

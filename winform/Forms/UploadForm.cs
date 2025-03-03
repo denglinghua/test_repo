@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace RadiologyReportEvaluation
+using RadiologyReportEvaluation.Data;
+
+namespace RadiologyReportEvaluation.Forms
 {
     public partial class UploadForm : FormBase
     {
@@ -48,7 +44,7 @@ namespace RadiologyReportEvaluation
             {
                 ReportFile.Instance.LoadFile(fileName);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Failed to parse the file, please check the file format.");
                 return;
