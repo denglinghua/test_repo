@@ -94,7 +94,7 @@
             // labelEthnicityValue
             // 
             this.labelEthnicityValue.AutoSize = true;
-            this.labelEthnicityValue.Location = new System.Drawing.Point(463, 1045);
+            this.labelEthnicityValue.Location = new System.Drawing.Point(483, 1052);
             this.labelEthnicityValue.Name = "labelEthnicityValue";
             this.labelEthnicityValue.Size = new System.Drawing.Size(23, 30);
             this.labelEthnicityValue.TabIndex = 13;
@@ -103,16 +103,17 @@
             // labelEthnicity
             // 
             this.labelEthnicity.AutoSize = true;
-            this.labelEthnicity.Location = new System.Drawing.Point(360, 1045);
+            this.labelEthnicity.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEthnicity.Location = new System.Drawing.Point(360, 1051);
             this.labelEthnicity.Name = "labelEthnicity";
-            this.labelEthnicity.Size = new System.Drawing.Size(97, 30);
+            this.labelEthnicity.Size = new System.Drawing.Size(120, 32);
             this.labelEthnicity.TabIndex = 12;
             this.labelEthnicity.Text = "Ethnicity:";
             // 
             // labelAgeValue
             // 
             this.labelAgeValue.AutoSize = true;
-            this.labelAgeValue.Location = new System.Drawing.Point(291, 1045);
+            this.labelAgeValue.Location = new System.Drawing.Point(291, 1052);
             this.labelAgeValue.Name = "labelAgeValue";
             this.labelAgeValue.Size = new System.Drawing.Size(23, 30);
             this.labelAgeValue.TabIndex = 11;
@@ -121,16 +122,17 @@
             // labelAge
             // 
             this.labelAge.AutoSize = true;
-            this.labelAge.Location = new System.Drawing.Point(220, 1045);
+            this.labelAge.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAge.Location = new System.Drawing.Point(220, 1051);
             this.labelAge.Name = "labelAge";
-            this.labelAge.Size = new System.Drawing.Size(55, 30);
+            this.labelAge.Size = new System.Drawing.Size(66, 32);
             this.labelAge.TabIndex = 10;
             this.labelAge.Text = "Age:";
             // 
             // labelGenderValue
             // 
             this.labelGenderValue.AutoSize = true;
-            this.labelGenderValue.Location = new System.Drawing.Point(126, 1045);
+            this.labelGenderValue.Location = new System.Drawing.Point(138, 1052);
             this.labelGenderValue.Name = "labelGenderValue";
             this.labelGenderValue.Size = new System.Drawing.Size(23, 30);
             this.labelGenderValue.TabIndex = 9;
@@ -139,14 +141,16 @@
             // labelGender
             // 
             this.labelGender.AutoSize = true;
-            this.labelGender.Location = new System.Drawing.Point(35, 1045);
+            this.labelGender.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGender.Location = new System.Drawing.Point(35, 1051);
             this.labelGender.Name = "labelGender";
-            this.labelGender.Size = new System.Drawing.Size(85, 30);
+            this.labelGender.Size = new System.Drawing.Size(105, 32);
             this.labelGender.TabIndex = 8;
             this.labelGender.Text = "Gender:";
             // 
             // textBoxReason
             // 
+            this.textBoxReason.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxReason.Location = new System.Drawing.Point(37, 945);
             this.textBoxReason.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxReason.Multiline = true;
@@ -160,14 +164,16 @@
             // labelReason
             // 
             this.labelReason.AutoSize = true;
+            this.labelReason.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelReason.Location = new System.Drawing.Point(31, 896);
             this.labelReason.Name = "labelReason";
-            this.labelReason.Size = new System.Drawing.Size(161, 30);
+            this.labelReason.Size = new System.Drawing.Size(195, 32);
             this.labelReason.TabIndex = 6;
             this.labelReason.Text = "Reason to Exam";
             // 
             // textBoxImpressionB
             // 
+            this.textBoxImpressionB.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxImpressionB.Location = new System.Drawing.Point(36, 666);
             this.textBoxImpressionB.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxImpressionB.Multiline = true;
@@ -181,14 +187,16 @@
             // labelImpressionB
             // 
             this.labelImpressionB.AutoSize = true;
+            this.labelImpressionB.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelImpressionB.Location = new System.Drawing.Point(30, 626);
             this.labelImpressionB.Name = "labelImpressionB";
-            this.labelImpressionB.Size = new System.Drawing.Size(132, 30);
+            this.labelImpressionB.Size = new System.Drawing.Size(163, 32);
             this.labelImpressionB.TabIndex = 4;
             this.labelImpressionB.Text = "Impression B";
             // 
             // textBoxImpressionA
             // 
+            this.textBoxImpressionA.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxImpressionA.Location = new System.Drawing.Point(37, 377);
             this.textBoxImpressionA.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxImpressionA.Multiline = true;
@@ -202,14 +210,16 @@
             // labelImpressionA
             // 
             this.labelImpressionA.AutoSize = true;
+            this.labelImpressionA.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelImpressionA.Location = new System.Drawing.Point(31, 327);
             this.labelImpressionA.Name = "labelImpressionA";
-            this.labelImpressionA.Size = new System.Drawing.Size(134, 30);
+            this.labelImpressionA.Size = new System.Drawing.Size(165, 32);
             this.labelImpressionA.TabIndex = 2;
             this.labelImpressionA.Text = "Impression A";
             // 
             // textBoxFindings
             // 
+            this.textBoxFindings.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFindings.Location = new System.Drawing.Point(44, 85);
             this.textBoxFindings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxFindings.Multiline = true;
@@ -224,9 +234,10 @@
             // labelFindings
             // 
             this.labelFindings.AutoSize = true;
+            this.labelFindings.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelFindings.Location = new System.Drawing.Point(38, 36);
             this.labelFindings.Name = "labelFindings";
-            this.labelFindings.Size = new System.Drawing.Size(90, 30);
+            this.labelFindings.Size = new System.Drawing.Size(111, 32);
             this.labelFindings.TabIndex = 0;
             this.labelFindings.Text = "Findings";
             // 
@@ -249,6 +260,7 @@
             // 
             // textBoxComment
             // 
+            this.textBoxComment.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxComment.Location = new System.Drawing.Point(17, 179);
             this.textBoxComment.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxComment.Multiline = true;
@@ -260,9 +272,10 @@
             // labelComment
             // 
             this.labelComment.AutoSize = true;
-            this.labelComment.Location = new System.Drawing.Point(12, 122);
+            this.labelComment.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelComment.Location = new System.Drawing.Point(12, 127);
             this.labelComment.Name = "labelComment";
-            this.labelComment.Size = new System.Drawing.Size(104, 30);
+            this.labelComment.Size = new System.Drawing.Size(125, 32);
             this.labelComment.TabIndex = 4;
             this.labelComment.Text = "Comment";
             // 
@@ -278,9 +291,10 @@
             // labelQuality
             // 
             this.labelQuality.AutoSize = true;
+            this.labelQuality.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuality.Location = new System.Drawing.Point(628, 70);
             this.labelQuality.Name = "labelQuality";
-            this.labelQuality.Size = new System.Drawing.Size(155, 30);
+            this.labelQuality.Size = new System.Drawing.Size(191, 32);
             this.labelQuality.TabIndex = 2;
             this.labelQuality.Text = "Overall Quality:";
             // 
@@ -296,9 +310,10 @@
             // labelAccuracy
             // 
             this.labelAccuracy.AutoSize = true;
+            this.labelAccuracy.Font = new System.Drawing.Font("Segoe UI", 9.857143F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAccuracy.Location = new System.Drawing.Point(7, 70);
             this.labelAccuracy.Name = "labelAccuracy";
-            this.labelAccuracy.Size = new System.Drawing.Size(174, 30);
+            this.labelAccuracy.Size = new System.Drawing.Size(215, 32);
             this.labelAccuracy.TabIndex = 0;
             this.labelAccuracy.Text = "Clinical Accuracy:";
             // 
