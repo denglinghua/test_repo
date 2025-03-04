@@ -8,7 +8,6 @@ import {
   Rating,
   Divider,
   FormControl,
-  FormHelperText,
 } from "@mui/material";
 import api from "../utils/api";
 
@@ -18,17 +17,17 @@ const EvaluateSection = ({ file, onComplete }) => {
   const [qualityRating, setQualityRating] = useState(0);
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
+  
   const { fileName, rows } = file;
+  // Since upload section has already checked the file, we can assume the file is not empty
   const curRow = rows[rowIndex];
   const total = rows.length;
 
   useEffect(() => {
-    if (rows.length > 0) {
-      const { evaluation } = rows[rowIndex];
-      setAccuracyRating(evaluation.accuracyRating);
-      setQualityRating(evaluation.qualityRating);
-      setComment(evaluation.comment);
-    }
+    const { evaluation } = rows[rowIndex];
+    setAccuracyRating(evaluation.accuracyRating);
+    setQualityRating(evaluation.qualityRating);
+    setComment(evaluation.comment);
   }, [rowIndex, rows]);
 
   const checkRating = () => {
