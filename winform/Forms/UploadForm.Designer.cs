@@ -61,9 +61,9 @@
             this.buttonSelectFile.Location = new System.Drawing.Point(926, 25);
             this.buttonSelectFile.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonSelectFile.Name = "buttonSelectFile";
-            this.buttonSelectFile.Size = new System.Drawing.Size(94, 53);
+            this.buttonSelectFile.Size = new System.Drawing.Size(150, 60);
             this.buttonSelectFile.TabIndex = 2;
-            this.buttonSelectFile.Text = "Select";
+            this.buttonSelectFile.Text = "Browse...";
             this.buttonSelectFile.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonSelectFile.UseVisualStyleBackColor = true;
             this.buttonSelectFile.Click += new System.EventHandler(this.buttonSelectFile_Click);
