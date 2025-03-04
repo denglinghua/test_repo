@@ -17,7 +17,12 @@ const UploadSection = ({ onComplete }) => {
     api
       .upload("/upload", formData)
       .then((res) => {
-        onComplete(res.data);
+        const hasData = res.data.rows.length > 0;
+        if (hasData) {
+          onComplete(res.data);
+        } else {
+          setError("The file does not contain any record.");
+        }
       })
       .catch((err) => {
         if (err.code === 1) {
