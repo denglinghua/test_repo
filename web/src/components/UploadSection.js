@@ -11,8 +11,6 @@ const UploadSection = ({ onComplete }) => {
   };
 
   const handleFileUpload = async (event) => {
-    event.preventDefault();
-
     const formData = new FormData();
     formData.append("file", selectedFile);
 
@@ -36,28 +34,26 @@ const UploadSection = ({ onComplete }) => {
         <Typography variant="body1" gutterBottom style={{ marginBottom: "2rem" }}>
           Upload an Excel file({fileExtension}) that includes patient information and findings.
         </Typography>
-        <form onSubmit={handleFileUpload}>
-          <Box display="flex" flexDirection="column">
-            <FormControl error={!!error} style={{ marginBottom: "1rem" }}>
-              <Input
-                type="file"
-                onChange={handleFileChange}
-                inputProps={{ accept: fileExtension }}
-                style={{ marginBottom: "1rem" }}
-              />
-              {error && <FormHelperText>{error}</FormHelperText>}
-            </FormControl>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              disabled={!selectedFile}
-              style={{ marginTop: "1rem" }}
-            >
-              Upload File
-            </Button>
-          </Box>
-        </form>
+        <Box display="flex" flexDirection="column">
+          <FormControl error={!!error} style={{ marginBottom: "1rem" }}>
+            <Input
+              type="file"
+              onChange={handleFileChange}
+              inputProps={{ accept: fileExtension }}
+              style={{ marginBottom: "1rem" }}
+            />
+            {error && <FormHelperText>{error}</FormHelperText>}
+          </FormControl>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleFileUpload}
+            disabled={!selectedFile}
+            style={{ marginTop: "1rem" }}
+          >
+            Upload File
+          </Button>
+        </Box>
       </Box>
     </Container>
   );
