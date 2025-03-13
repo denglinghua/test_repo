@@ -14,6 +14,9 @@ const EvaluateSection = ({ file, onComplete }) => {
   const curRow = rows[rowIndex];
   const total = rows.length;
 
+  const progress = ((rowIndex + 1) * 100) / total;
+  const nextButtonTitle = rowIndex === total - 1 ? "Finish" : "Next";
+
   useEffect(() => {
     const { evaluation } = rows[rowIndex];
     setAccuracyRating(evaluation.accuracyRating);
@@ -70,8 +73,6 @@ const EvaluateSection = ({ file, onComplete }) => {
     api.post("/evaluate", { fileName, rowIndex, ...curRow.evaluation });
   };
 
-  const progress = (rowIndex / total) * 100;
-
   return (
     <Container maxWidth="lg">
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={1}>
@@ -95,7 +96,7 @@ const EvaluateSection = ({ file, onComplete }) => {
           <Box>
             <Box display="flex" justifyContent="center" mt={1}>
               <Typography>
-                {rowIndex} / {total}
+                {rowIndex + 1} / {total}
               </Typography>
             </Box>
             <Box mt={1} mb={1}>
@@ -104,7 +105,7 @@ const EvaluateSection = ({ file, onComplete }) => {
                   <Typography variant="body1" gutterBottom>
                     <strong>{key}</strong>
                   </Typography>
-                  <Typography variant="body1" gutterBottom style={{ whiteSpace: "pre-line" }}>
+                  <Typography variant="body2" gutterBottom style={{ whiteSpace: "pre-line" }}>
                     {curRow[key]}
                   </Typography>
                 </React.Fragment>
@@ -169,7 +170,7 @@ const EvaluateSection = ({ file, onComplete }) => {
           Previous
         </Button>
         <Button variant="contained" color="secondary" onClick={handleNext} disabled={rowIndex === total}>
-          Next
+          {nextButtonTitle}
         </Button>
       </Box>
     </Container>
