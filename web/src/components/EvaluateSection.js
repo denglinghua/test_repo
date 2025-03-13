@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Typography,
-  Box,
-  LinearProgress,
-  Button,
-  Rating,
-  Divider,
-  FormControl,
-} from "@mui/material";
+import { Container, Typography, Box, LinearProgress, Button, Rating, Divider, FormControl } from "@mui/material";
 import api from "../utils/api";
 
 const EvaluateSection = ({ file, onComplete }) => {
@@ -17,7 +8,7 @@ const EvaluateSection = ({ file, onComplete }) => {
   const [qualityRating, setQualityRating] = useState(0);
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
-  
+
   const { fileName, rows } = file;
   // Since upload section has already checked the file, we can assume the file is not empty
   const curRow = rows[rowIndex];
@@ -83,7 +74,7 @@ const EvaluateSection = ({ file, onComplete }) => {
 
   return (
     <Container maxWidth="lg">
-      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={2}>
+      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={1}>
         <Typography variant="h5" gutterBottom>
           Evaluate
         </Typography>
@@ -92,7 +83,7 @@ const EvaluateSection = ({ file, onComplete }) => {
         variant="determinate"
         value={progress}
         sx={{
-          height: 15,
+          height: 12,
           backgroundColor: "#e0e0e0",
           "& .MuiLinearProgress-bar": {
             backgroundColor: "#3f51b5",
@@ -102,19 +93,30 @@ const EvaluateSection = ({ file, onComplete }) => {
       <Box>
         {rows.length > 0 && (
           <Box>
-            <Box display="flex" justifyContent="center" mt={2} mb={2}>
+            <Box display="flex" justifyContent="center" mt={1}>
               <Typography>
                 {rowIndex} / {total}
               </Typography>
             </Box>
-            <Box mt={2}>
-              {Object.entries(curRow)
-                .filter(([key]) => key !== "evaluation")
-                .map(([key, value]) => (
-                  <Typography key={key} variant="body1" gutterBottom>
-                    <strong>{key}:</strong> {value}
+            <Box mt={1} mb={1}>
+              {["Findings", "Impression A", "Impression B", "Reason For Exam"].map((key) => (
+                <React.Fragment key={key}>
+                  <Typography variant="body1" gutterBottom>
+                    <strong>{key}</strong>
+                  </Typography>
+                  <Typography variant="body1" gutterBottom style={{ whiteSpace: "pre-line" }}>
+                    {curRow[key]}
+                  </Typography>
+                </React.Fragment>
+              ))}
+              <Box display="flex">
+                {["Ethnicity", "Gender", "Age"].map((key) => (
+                  <Typography variant="body1" gutterBottom key={key} mr={3}>
+                    <strong>{key}: </strong>
+                    {curRow[key]}
                   </Typography>
                 ))}
+              </Box>
             </Box>
           </Box>
         )}
@@ -122,7 +124,7 @@ const EvaluateSection = ({ file, onComplete }) => {
       <Divider />
       <FormControl error={!!error}>
         {error && (
-          <Typography variant="body2" color="error" gutterBottom mt={2}>
+          <Typography variant="body2" color="error" gutterBottom mt={1}>
             {error}
           </Typography>
         )}

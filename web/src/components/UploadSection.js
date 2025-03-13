@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Container, Typography, Box, Button, Input, FormControl, FormHelperText } from "@mui/material";
+import { Container, Typography, Box, Button, styled } from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import api from "../utils/api";
 
 const UploadSection = ({ onComplete }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState("");
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    upload(event.target.files[0]);
   };
 
-  const handleFileUpload = async (event) => {
+  const upload = async (selectedFile) => {
     const formData = new FormData();
     formData.append("file", selectedFile);
 
@@ -33,31 +33,34 @@ const UploadSection = ({ onComplete }) => {
 
   const fileExtension = ".xlsx";
 
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+  });
+
   return (
     <Container maxWidth="sm">
       <Box display="flex" flexDirection="column" alignItems="left" justifyContent="center">
-        <Typography variant="body1" gutterBottom style={{ marginBottom: "2rem" }}>
+        <Typography variant="body1" gutterBottom style={{ marginBottom: "1rem" }}>
           Upload an Excel file({fileExtension}) that includes patient information and findings.
         </Typography>
         <Box display="flex" flexDirection="column">
-          <FormControl error={!!error} style={{ marginBottom: "1rem" }}>
-            <Input
-              type="file"
-              onChange={handleFileChange}
-              inputProps={{ accept: fileExtension }}
-              style={{ marginBottom: "1rem" }}
-            />
-            {error && <FormHelperText>{error}</FormHelperText>}
-          </FormControl>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleFileUpload}
-            disabled={!selectedFile}
-            style={{ marginTop: "1rem" }}
-          >
-            Upload File
+          <Button component="label" role={undefined} variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
+            Upload file
+            <VisuallyHiddenInput type="file" accept={fileExtension} onChange={handleFileChange} />
           </Button>
+          {error && (
+            <Typography variant="body2" color="error" style={{ marginTop: "1rem" }}>
+              {error}
+            </Typography>
+          )}
         </Box>
       </Box>
     </Container>

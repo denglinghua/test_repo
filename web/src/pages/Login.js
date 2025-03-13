@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container, TextField, Button, Box } from "@mui/material";
+import { Container, TextField, Button, Box, InputAdornment } from "@mui/material";
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import useUserStore from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
@@ -39,6 +40,15 @@ const Login = () => {
             label="Username"
             variant="outlined"
             margin="normal"
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              },
+            }}
             fullWidth
             required
             error={!!error}
