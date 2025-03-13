@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.progressBar = new RadiologyReportEvaluation.Forms.CustomProgressBar();
             this.groupBoxInfo = new System.Windows.Forms.GroupBox();
             this.labelEthnicityValue = new System.Windows.Forms.Label();
             this.labelEthnicity = new System.Windows.Forms.Label();
@@ -372,7 +372,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ProgressBar progressBar;
+        private RadiologyReportEvaluation.Forms.CustomProgressBar progressBar;
         private System.Windows.Forms.GroupBox groupBoxInfo;
         private System.Windows.Forms.Label labelFindings;
         private System.Windows.Forms.TextBox textBoxFindings;

@@ -56,6 +56,7 @@ namespace RadiologyReportEvaluation.Forms
         {
             this.buttonPrevious.Enabled = this.rowIndex > 0;
             this.buttonNext.Enabled = this.rowIndex < this.totalRows;
+            this.buttonNext.Text = this.rowIndex == this.totalRows - 1 ? "Finish" : "Next";
         }
 
         private void ShowRow(Row row)
@@ -81,7 +82,8 @@ namespace RadiologyReportEvaluation.Forms
         private void UpdateProgress()
         {
             int currentRow = this.rowIndex;
-            this.progressBar.Value = (int)((double)currentRow / this.totalRows * 100);
+            this.progressBar.Value = (int)((currentRow + 1) * 100 / this.totalRows);
+            this.progressBar.DisplayText = $"{currentRow + 1} of {this.totalRows}";
         }
 
         private bool IsScored()
