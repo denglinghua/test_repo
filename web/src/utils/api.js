@@ -7,11 +7,11 @@ const axs = axios.create({ baseURL: apiURL });
 function request(method, url, param = null) {
   let call;
   let header = {};
-  if (method == "get") {
+  if (method === "get") {
     call = axs.get;
-  } else if (method == "post") {
+  } else if (method === "post") {
     call = axs.post;
-  } else if (method == "upload") {
+  } else if (method === "upload") {
     call = axs.post;
     header = {
       headers: {
@@ -72,9 +72,11 @@ function logResponseError(err) {
   console.error("↓ * ", err);
 }
 
-function notifyOk(msg) {}
+// todo: implement notification
+// function notifyOk(msg) {}
 
-function notifyErr(msg) {}
+// todo: implement notification
+// function notifyErr(msg) {}
 
 function handleUnLogin() {
   window.location.href = "/";
@@ -103,4 +105,6 @@ function upload(url, fileData) {
   return request("upload", url, fileData);
 }
 
-export default { get, post, upload, setAuthToken };
+const api = { get, post, upload, setAuthToken };
+
+export default api;
