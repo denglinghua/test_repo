@@ -8,7 +8,7 @@ import {
   CssBaseline,
   IconButton,
 } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
+import LogoutIcon from '@mui/icons-material/ExitToAppOutlined';
 import { BrowserRouter as Router } from "react-router-dom";
 import useUserStore from "./stores/userStore";
 import useLoadingStore from "./stores/loadingStore";
@@ -55,10 +55,11 @@ const App = () => {
                 <Typography variant="h6">Welcome, {username}</Typography>
                 <IconButton
                   color="inherit"
+                  size="large"
                   onClick={handleLogout}
                   aria-label="logout"
                 >
-                  <LogoutIcon />
+                  <LogoutIcon fontSize="inherit" />
                 </IconButton>
               </Box>
             )}
