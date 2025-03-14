@@ -62,7 +62,7 @@ namespace RadiologyReportEvaluation
 
         private void Start()
         {
-            LoginForm loginForm = new LoginForm();
+            FormBase loginForm = this.GetForm("login");
             this.SwitchForm(loginForm);
         }
 
