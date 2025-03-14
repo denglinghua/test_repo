@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs/promises";
 import response from "../../common/response.js";
 import excel from "./Excel.js";
 import db from "../../db/database.js";
@@ -14,6 +15,9 @@ async function upload(req, res) {
 
   const fileName = path.basename(filePath);
   db.insertFile(fileName, originalName, req.user.username, rows);
+
+  // delete temp file immediately or batch delete later?
+  fs.unlink(filePath);
 
   response.ok(res, "File uploaded successfully", {
     fileName: fileName,
