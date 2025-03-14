@@ -14,8 +14,8 @@ function init() {
 
   db.exec(`
         CREATE TABLE IF NOT EXISTS files (
-        filename TEXT PRIMARY KEY,
-        original_filename TEXT,
+        file_id TEXT PRIMARY KEY,
+        file_name TEXT,
         creator TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
@@ -23,8 +23,8 @@ function init() {
 
   db.exec(`
         CREATE TABLE IF NOT EXISTS evaluations (
-        id integer,
-        filename TEXT,
+        file_id TEXT,
+        row_id integer,
         findings TEXT,
         impression_a TEXT,
         impression_b TEXT,
@@ -34,30 +34,31 @@ function init() {
         age INTEGER,
         accuracy_rating INTEGER default 0,
         quality_rating INTEGER default 0,
-        comment TEXT default ''
+        comment TEXT default '',
+        PRIMARY KEY (file_id, row_id)
         )
     `);
 
   close(db);
 }
 
-async function insertFile(filename, originalName, creator, rows) {
+async function insertFile(fileId, fileName, creator, rows) {
   const db = open();
 
   const insertFile = db.prepare(
-    "INSERT INTO files (filename,  original_filename, creator) VALUES (?, ?, ?)"
+    "INSERT INTO files (file_id, file_name, creator) VALUES (?, ?, ?)"
   );
 
   const insertEvaluation = db.prepare(
-    "INSERT INTO evaluations (id, filename, findings, impression_a, impression_b, ethnicity, gender, reason_for_exam, age) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    "INSERT INTO evaluations (file_id, row_id, findings, impression_a, impression_b, ethnicity, gender, reason_for_exam, age) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
   );
 
   const insertEvals = db.transaction((rows) => {
     let index = 0;
     for (const row of rows)
       insertEvaluation.run(
+        fileId,
         index++,
-        filename,
         row["Findings"],
         row["Impression A"],
         row["Impression B"],
@@ -69,7 +70,7 @@ async function insertFile(filename, originalName, creator, rows) {
   });
 
   const insertAll = db.transaction((rows) => {
-    insertFile.run(filename, originalName, creator);
+    insertFile.run(fileId, fileName, creator);
     insertEvals(rows); // nested transaction
   });
 
@@ -79,34 +80,34 @@ async function insertFile(filename, originalName, creator, rows) {
 }
 
 function updateEvaluation(
-  filename,
-  id,
+  fileId,
+  rowId,
   accuracyRating,
   qualityRating,
   comment
 ) {
   const db = open();
   const update = db.prepare(
-    "UPDATE evaluations SET accuracy_rating = ?, quality_rating = ?, comment = ? WHERE filename = ? and id = ?"
+    "UPDATE evaluations SET accuracy_rating = ?, quality_rating = ?, comment = ? WHERE file_id = ? and row_id = ?"
   );
-  update.run(accuracyRating, qualityRating, comment, filename, id);
+  update.run(accuracyRating, qualityRating, comment, fileId, rowId);
   close(db);
 }
 
-function getFile(filename) {
+function getFile(fileId) {
   const db = open();
   const row = db
-    .prepare("SELECT * FROM files WHERE filename = ?")
-    .get(filename);
+    .prepare("SELECT * FROM files WHERE file_id = ?")
+    .get(fileId);
   close(db);
   return row;
 }
 
-function getEvaluations(filename) {
+function getEvaluations(fileId) {
   const db = open();
   const rows = db
-    .prepare("SELECT * FROM evaluations WHERE filename = ?")
-    .all(filename);
+    .prepare("SELECT * FROM evaluations WHERE file_id = ?")
+    .all(fileId);
   close(db);
   return rows;
 }

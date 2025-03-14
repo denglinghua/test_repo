@@ -19,15 +19,10 @@ const UploadSection = ({ onComplete }) => {
     api
       .upload("/upload", formData)
       .then((res) => {
-        const hasData = res.data.rows.length > 0;
-        if (hasData) {
-          onComplete(res.data);
-        } else {
-          setError("The file does not contain any record.");
-        }
+        onComplete(res.data);
       })
       .catch((err) => {
-        if (err.code === 1) {
+        if (err.code === 1 || err.code === 2) {
           setError(err.msg);
         }
       }).finally(() => {

@@ -22,7 +22,9 @@ const uploadStorage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: uploadStorage });
+// const upload = multer({ storage: uploadStorage });
+// don't save the file to disk, save it to memory
+const upload = multer({ storage: multer.memoryStorage() });
 
 router.post(
   "/upload",

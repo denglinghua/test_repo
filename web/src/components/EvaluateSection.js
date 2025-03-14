@@ -9,7 +9,7 @@ const EvaluateSection = ({ file, onComplete }) => {
   const [comment, setComment] = React.useState("");
   const [error, setError] = React.useState("");
 
-  const { fileName, rows } = file;
+  const { fileId, rows } = file;
   // Since upload section has already checked the file, we can assume the file is not empty
   const curRow = rows[rowIndex];
   const total = rows.length;
@@ -71,7 +71,7 @@ const EvaluateSection = ({ file, onComplete }) => {
 
   const saveEvaluation = () => {
     g.setLoading(true);
-    g.post("/evaluate", { fileName, rowIndex, ...curRow.evaluation }).finally(() => {
+    g.post("/evaluate", { fileId: fileId, rowIndex, ...curRow.evaluation }).finally(() => {
       g.setLoading(false);
     });
   };

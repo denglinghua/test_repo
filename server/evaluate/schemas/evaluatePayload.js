@@ -1,7 +1,7 @@
 export default {
   type: "object",
   properties: {
-    fileName: {
+    fileId: {
       type: "string",
     },
     rowIndex: {
@@ -17,6 +17,6 @@ export default {
       type: "string",
     },
   },
-  required: ["fileName", "rowIndex", "accuracyRating", "qualityRating", "comment"],
+  required: ["fileId", "rowIndex", "accuracyRating", "qualityRating", "comment"],
   additionalProperties: false,
 };
