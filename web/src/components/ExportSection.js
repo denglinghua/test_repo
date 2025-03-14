@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Container, Typography, Box, Button, Snackbar, Alert } from "@mui/material";
+import * as React from "react";
+import { Container, Typography, Box, Button } from "@mui/material";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
-const ExportSection = ({ file }) => {
-  const [open, setOpen] = useState(false);
+import * as g from "../utils/global";
 
+const ExportSection = ({ file }) => {
   const handleExport = () => {
     const worksheet = XLSX.utils.json_to_sheet(transformData(file.rows));
     const workbook = XLSX.utils.book_new();
@@ -21,7 +21,7 @@ const ExportSection = ({ file }) => {
 
     saveAs(blob, createExportFileName(file.originalName));
 
-    setOpen(true);
+    g.notifyOk("Exported successfully.");
   };
 
   const createExportFileName = (originalName) => {
@@ -46,14 +46,6 @@ const ExportSection = ({ file }) => {
     });
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-
   return (
     <Container maxWidth="md">
       <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center">
@@ -65,17 +57,6 @@ const ExportSection = ({ file }) => {
           Export to Excel
         </Button>
       </Box>
-
-      <Snackbar
-        open={open}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        autoHideDuration={2000}
-        onClose={handleClose}
-      >
-        <Alert severity="success" sx={{ width: "100%" }}>
-          Export successful!
-        </Alert>
-      </Snackbar>
     </Container>
   );
 };

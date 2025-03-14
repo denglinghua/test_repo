@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
 import { Container, Typography, Box, LinearProgress, Button, Rating, Divider, FormControl } from "@mui/material";
-import api from "../utils/api";
+import * as g from "../utils/global";
 
 const EvaluateSection = ({ file, onComplete }) => {
-  const [rowIndex, setRowIndex] = useState(0);
-  const [accuracyRating, setAccuracyRating] = useState(0);
-  const [qualityRating, setQualityRating] = useState(0);
-  const [comment, setComment] = useState("");
-  const [error, setError] = useState("");
+  const [rowIndex, setRowIndex] = React.useState(0);
+  const [accuracyRating, setAccuracyRating] = React.useState(0);
+  const [qualityRating, setQualityRating] = React.useState(0);
+  const [comment, setComment] = React.useState("");
+  const [error, setError] = React.useState("");
 
   const { fileName, rows } = file;
   // Since upload section has already checked the file, we can assume the file is not empty
@@ -17,7 +17,7 @@ const EvaluateSection = ({ file, onComplete }) => {
   const progress = ((rowIndex + 1) * 100) / total;
   const nextButtonTitle = rowIndex === total - 1 ? "Finish" : "Next";
 
-  useEffect(() => {
+  React.useEffect(() => {
     const { evaluation } = rows[rowIndex];
     setAccuracyRating(evaluation.accuracyRating);
     setQualityRating(evaluation.qualityRating);
@@ -70,7 +70,10 @@ const EvaluateSection = ({ file, onComplete }) => {
   };
 
   const saveEvaluation = () => {
-    api.post("/evaluate", { fileName, rowIndex, ...curRow.evaluation });
+    g.setLoading(true);
+    g.post("/evaluate", { fileName, rowIndex, ...curRow.evaluation }).finally(() => {
+      g.setLoading(false);
+    });
   };
 
   return (

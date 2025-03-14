@@ -7,6 +7,7 @@ import userRoutes from "./user/routes.js";
 import evaluateRoutes from "./evaluate/routes.js";
 import authMiddleware from "./common/middlewares/IsAuthenticatedMiddleware.js";
 import globalError from "./common/middlewares/GlobalErrorHandleMiddleware.js";
+import delayMiddleware from "./common/middlewares/delayMiddleware.js";
 import logger from "./common/logger.js";
 import db from "./db/database.js";
 
@@ -23,6 +24,11 @@ app.use(cors());
 // of middlewares and controllers.
 app.use(express.json());
 
+if (process.env.NODE_ENV === "development") {
+  // simulate newtwork delay in development mode
+  app.use(delayMiddleware);
+}
+
 app.use("/", userRoutes);
 
 // add auth middleware, the above one is public and the following ones authentication is required
@@ -36,5 +42,5 @@ app.use(globalError);
 db.init();
 
 app.listen(port, () => {
-  logger.info("Server Listening on PORT:", port);
+  logger.info("Server Listening on PORT: " + port);
 });

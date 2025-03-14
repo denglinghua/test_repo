@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Typography, Box, Button, styled } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import api from "../utils/api";
+import * as g from "../utils/global";
 
 const UploadSection = ({ onComplete }) => {
   const [error, setError] = useState("");
@@ -14,6 +15,7 @@ const UploadSection = ({ onComplete }) => {
     const formData = new FormData();
     formData.append("file", selectedFile);
 
+    g.setLoading(true);
     api
       .upload("/upload", formData)
       .then((res) => {
@@ -28,7 +30,10 @@ const UploadSection = ({ onComplete }) => {
         if (err.code === 1) {
           setError(err.msg);
         }
-      });
+      }).finally(() => {
+        g.setLoading(false);
+      }
+    );
   };
 
   const fileExtension = ".xlsx";

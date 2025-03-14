@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import * as React from "react";
 import { Container, TextField, Button, Box, InputAdornment } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import useUserStore from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
+import * as g from "../utils/global";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = React.useState("");
   const setUser = useUserStore((state) => state.setUser);
-  const [error, setError] = useState("");
+  const [error, setError] = React.useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
+
+    g.setLoading(true);
 
     api.post("/login", { username : username }).then((res) => {
       setUser(res.data.username);
@@ -23,7 +26,10 @@ const Login = () => {
       if (err.code === 1) {
         setError(err.msg);
       }
-    });
+    }).finally(() => {
+      g.setLoading(false);
+    }
+    );
   };
 
   return (

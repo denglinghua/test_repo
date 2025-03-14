@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as g from "./global";
 
 const isDev = process.env.NODE_ENV === "development";
 let apiURL = isDev ? "http://localhost:3001" : "";
@@ -44,7 +45,7 @@ function request(method, url, param = null) {
           handleErrStatus(err.response.status);
         }
         logResponseError(err);
-        gotoError();
+        g.notifyError("server error");
       });
   });
 }
@@ -72,21 +73,8 @@ function logResponseError(err) {
   console.error("↓ * ", err);
 }
 
-// todo: implement notification
-// function notifyOk(msg) {}
-
-// todo: implement notification
-// function notifyErr(msg) {}
-
 function handleUnLogin() {
   window.location.href = "/";
-}
-
-function gotoError() {
-  if (isDev) {
-    return;
-  }
-  window.location.href = "/error";
 }
 
 function setAuthToken(token) {

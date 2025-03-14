@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 
+// current session user
 const useUserStore = create((set) => ({
   username: null,
   isAuthenticated: false,
