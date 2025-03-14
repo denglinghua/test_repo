@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Windows.Forms;
 
 using RadiologyReportEvaluation.Forms;
@@ -8,6 +11,7 @@ namespace RadiologyReportEvaluation
     public partial class MainForm: Form
     {
         TableLayoutPanel tableLayoutPanel;
+        private Dictionary<string, string> formMappings;
         public MainForm()
         {
             InitializeComponent();
@@ -23,8 +27,19 @@ namespace RadiologyReportEvaluation
 
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 
+            LoadFormMappings();
+
             Start();
-            
+        }
+
+        private void LoadFormMappings()
+        {
+            formMappings = new Dictionary<string, string>();
+            var section = (NameValueCollection)ConfigurationManager.GetSection("formMappings");
+            foreach (string key in section)
+            {
+                formMappings[key] = section[key];
+            }
         }
 
         private void SwitchForm(FormBase form)
@@ -53,19 +68,15 @@ namespace RadiologyReportEvaluation
 
         private FormBase GetForm(string formName)
         {
-            switch (formName)
+            if (formMappings.TryGetValue(formName, out string formTypeName))
             {
-                case "login":
-                    return new LoginForm();
-                case "upload":
-                    return new UploadForm();
-                case "score":
-                    return new ScoreForm(); 
-                case "export":
-                    return new ExportForm();
-                default:
-                    return new LoginForm();
+                Type formType = Type.GetType(formTypeName);
+                if (formType != null)
+                {
+                    return (FormBase)Activator.CreateInstance(formType);
+                }
             }
+            throw new ArgumentException($"Form with name '{formName}' not found.");
         }
     }
 }
