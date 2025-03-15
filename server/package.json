@@ -4,6 +4,8 @@
   "description": "",
   "type": "module",
   "main": "index.js",
+  "license": "MIT",
+  "author": "deng",
   "scripts": {
     "start": "node index.js"
   },
