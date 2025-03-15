@@ -1,7 +1,8 @@
 import winston from "winston";
+import env from "../env.js";
 
 const logger = winston.createLogger({
-  level: "info",
+  level: env.logLevel(),
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.prettyPrint()

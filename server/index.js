@@ -11,13 +11,17 @@ import globalError from "./common/middlewares/GlobalErrorHandleMiddleware.js";
 import delayMiddleware from "./common/middlewares/delayMiddleware.js";
 import logger from "./common/logger.js";
 import db from "./db/database.js";
+import env from "./env.js";
 
 const app = express();
 
 const port = process.env.PORT || config.port;
 
 // Middleware that logs the incoming requests to the console.
-app.use(morgan("tiny"));
+if (env.isDev()) {
+  app.use(morgan("tiny"));
+}
+
 // Middleware that enables CORS for all the incoming requests.
 app.use(cors());
 
@@ -25,8 +29,9 @@ app.use(cors());
 // of middlewares and controllers.
 app.use(express.json());
 
-if (process.env.NODE_ENV === "development") {
+if (env.isDev()) {
   // simulate newtwork delay in development mode
+  logger.info("Delay middleware enabled");
   app.use(delayMiddleware);
 }
 

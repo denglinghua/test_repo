@@ -1,7 +1,12 @@
 import sqlite from "better-sqlite3";
+import env from "../env.js";
 
 function open() {
-  return new sqlite("database.db", { verbose: console.log });
+  const options = {};
+  if (env.isDev()) {
+    options.verbose = console.log;
+  }
+  return new sqlite("database.db", options);
 }
 
 function close(db) {
