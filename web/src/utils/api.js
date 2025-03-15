@@ -2,7 +2,13 @@ import axios from "axios";
 import * as g from "./global";
 
 const isDev = process.env.NODE_ENV === "development";
-let apiURL = isDev ? "http://localhost:3001" : "";
+
+function getApiURL() {
+  const url = isDev ? process.env.REACT_APP_API_URL_DEV : process.env.REACT_APP_API_URL_PROD;
+  return url || "http://localhost:3001";
+}
+
+const apiURL = getApiURL();
 const axs = axios.create({ baseURL: apiURL });
 
 function request(method, url, param = null) {
