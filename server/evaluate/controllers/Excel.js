@@ -1,6 +1,7 @@
 import xlsx from "xlsx";
 import fs from "fs/promises";
 import logger from "../../common/logger.js";
+import e from "express";
 
 function parseFromFile(filePath, fileName) {
   try {
@@ -57,4 +58,28 @@ function parse(workbook) {
   return jsonData;
 }
 
-export default { parseFromFile, parseFromBuffer };
+function exportExcel(rows) {
+  // before exporting, transform the database columns to display columns
+  rows = rows.map((row) => ({
+    "Findings": row.findings,
+    "Impression A": row.impression_a,
+    "Impression B": row.impression_b,
+    "Ethnicity": row.ethnicity,
+    "Gender": row.gender,
+    "Reason For Exam": row.reason_for_exam,
+    "Age": row.age,
+    "Clinical Accuracy": row.accuracy_rating,
+    "Overall Quality": row.quality_rating,
+    "Comment": row.comment,
+  }));
+
+  const ws = xlsx.utils.json_to_sheet(rows);
+  const wb = xlsx.utils.book_new();
+  xlsx.utils.book_append_sheet(wb, ws, "Sheet1");
+
+  const buffer = xlsx.write(wb, { type: "buffer", bookType: "xlsx" });
+
+  return buffer;
+}
+
+export default { parseFromFile, parseFromBuffer, exportExcel };

@@ -38,9 +38,4 @@ router.post(
   evaluateController.evaluate
 );
 
-router.get(
-  "/result",
-  evaluateController.getResult
-);
-
 export default router;

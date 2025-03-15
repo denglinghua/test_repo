@@ -93,6 +93,6 @@ function upload(url, fileData) {
   return request("upload", url, fileData);
 }
 
-const api = { get, post, upload, setAuthToken };
+const api = { get, post, upload, setAuthToken, apiURL };
 
 export default api;

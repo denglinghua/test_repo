@@ -1,11 +1,15 @@
 import * as React from "react";
-import { Container, Typography, Box, Button } from "@mui/material";
+import { Container, Typography, Box, Button, Link, IconButton } from "@mui/material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
 import * as g from "../utils/global";
+import api from "../utils/api";
 
 const ExportSection = ({ file }) => {
+  const exportUrl = `${api.apiURL}/export/${file.fileId}`;
+
   const handleExport = () => {
     const worksheet = XLSX.utils.json_to_sheet(transformData(file.rows));
     const workbook = XLSX.utils.book_new();
@@ -46,6 +50,11 @@ const ExportSection = ({ file }) => {
     });
   };
 
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(exportUrl);
+    g.notifyOk("URL copied to clipboard.");
+  };
+
   return (
     <Container maxWidth="md">
       <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center">
@@ -56,6 +65,19 @@ const ExportSection = ({ file }) => {
         <Button variant="contained" color="primary" sx={{ width: "200px" }} onClick={handleExport}>
           Export to Excel
         </Button>
+
+        <Typography variant="body2" mt={3}>
+        You can also download the report anytime using the following link:
+        </Typography>
+
+        <Box display="flex" alignItems="center" mt={1}>
+          <Link href={exportUrl} target="_blank" rel="noopener" sx={{ marginRight: "0.5rem" }}>
+            {exportUrl}
+          </Link>
+          <IconButton color="#d3d3d3" onClick={handleCopyToClipboard}>
+            <ContentCopyIcon fontSize="small" />
+          </IconButton>
+        </Box>
       </Box>
     </Container>
   );

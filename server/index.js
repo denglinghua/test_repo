@@ -5,6 +5,7 @@ import "./evnconfig.js";
 import config from "./config.js";
 import userRoutes from "./user/routes.js";
 import evaluateRoutes from "./evaluate/routes.js";
+import exportRoutes from "./evaluate/exportRoutes.js";
 import authMiddleware from "./common/middlewares/IsAuthenticatedMiddleware.js";
 import globalError from "./common/middlewares/GlobalErrorHandleMiddleware.js";
 import delayMiddleware from "./common/middlewares/delayMiddleware.js";
@@ -30,6 +31,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use("/", userRoutes);
+app.use("/", exportRoutes);
 
 // add auth middleware, the above one is public and the following ones authentication is required
 app.use("/", authMiddleware.check);

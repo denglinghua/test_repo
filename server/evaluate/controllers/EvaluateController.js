@@ -1,4 +1,3 @@
-import path from "path";
 import crypto from "crypto";
 import response from "../../common/response.js";
 import excel from "./Excel.js";
@@ -37,23 +36,23 @@ async function evaluate(req, res) {
   response.ok(res, "Evaluation updated successfully");
 }
 
-async function getResult(req, res) {
-  const fileId = req.query.fileId;
+async function exportExcel(req, res) {
+  const fileId = req.params.fileId;
   const file = db.getFile(fileId);
   if (!file) {
     return response.error(res, 1, "File not found");
   }
 
-  const evaluations = db.getEvaluations(fileId);
+  const rows = db.getEvaluations(fileId);
+  const buffer = excel.exportExcel(rows);
   
-  response.ok(res, "Evaluations retrieved successfully", {
-    file: file,
-    rows: evaluations,
-  });
+  res.setHeader('Content-Disposition', `attachment; filename=${file.file_name}`);
+  res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+  res.send(buffer);
 }
 
 export default {
   upload,
   evaluate,
-  getResult,
+  exportExcel,
 };
