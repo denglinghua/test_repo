@@ -33,6 +33,7 @@ export default function Chart() {
       tooltip: {
         trigger: "item",
       },
+      color: ["red", "blue", "green", "orange", "purple"],
       series: [
         {
           type: "pie",

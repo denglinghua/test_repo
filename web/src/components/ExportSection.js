@@ -1,10 +1,9 @@
 import * as React from "react";
-import { Container, Typography, Box, Button, Link, IconButton, Dialog, DialogTitle, DialogContent } from "@mui/material";
+import { Container, Typography, Box, Button, Link, IconButton } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import CloseIcon from '@mui/icons-material/Close';
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-import Chart from "./Chart";
+import ChartDialog from "./ChartDialog";
 
 import * as g from "../utils/global";
 import api from "../utils/api";
@@ -90,24 +89,7 @@ const ExportSection = ({ file }) => {
           View score statistics charts
         </Button>
       </Box>
-      <Dialog onClose={handleClose} open={openDialog}>
-        <DialogTitle sx={{ textAlign: "center" }}>Score Distribution</DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={(theme) => ({
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: theme.palette.grey[500],
-          })}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent dividers>
-          <Chart />
-        </DialogContent>
-      </Dialog>
+      <ChartDialog open={openDialog} onClose={handleClose} />
     </Container>
   );
 };
