@@ -8,7 +8,7 @@ import ExportSection from "../components/ExportSection";
 const Evaluate = () => {
   const [currentStep, setCurrentStep] = useState("upload");
   // after uploading a file which will be verified and parsed by the server
-  // then sent back to the client as a response
+  // then sent json data back to the client as a response
   // after rows scoring, scores will be updated back to the server
   // client data will be used to export results sheet as data source
   // also, the data will be saved to the database. but currently, the database data is not used

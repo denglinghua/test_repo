@@ -17,6 +17,7 @@ export const notifyError = (message) => {
   setNotification(message, "error");
 }
 
+// To simplify importing(import this module only), forward the get and post functions from the api module
 export const get = (url, params) => {
   return api.get(url, params);
 }

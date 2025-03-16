@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Typography, Box } from '@mui/material';
 
+// currently not used, global notifcation instead
 const Error = () => {
     return (
         <Container maxWidth="sm">
