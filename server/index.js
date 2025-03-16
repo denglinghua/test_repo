@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import "./evnconfig.js";
-import config from "./config.js";
+import env from "./env.js";
 import userRoutes from "./user/routes.js";
 import evaluateRoutes from "./evaluate/routes.js";
 import exportRoutes from "./evaluate/exportRoutes.js";
@@ -11,15 +10,16 @@ import globalError from "./common/middlewares/GlobalErrorHandleMiddleware.js";
 import delayMiddleware from "./common/middlewares/delayMiddleware.js";
 import logger from "./common/logger.js";
 import db from "./db/database.js";
-import env from "./env.js";
 
 const app = express();
 
-const port = process.env.PORT || config.port;
-
-// Middleware that logs the incoming requests to the console.
 if (env.isDev()) {
+  // Middleware that logs the incoming requests to the console.
   app.use(morgan("tiny"));
+  // simulate newtwork delay in development mode
+  // this is useful to test the UI loading states
+  logger.info("Delay middleware enabled");
+  app.use(delayMiddleware);
 }
 
 // Middleware that enables CORS for all the incoming requests.
@@ -29,12 +29,7 @@ app.use(cors());
 // of middlewares and controllers.
 app.use(express.json());
 
-if (env.isDev()) {
-  // simulate newtwork delay in development mode
-  logger.info("Delay middleware enabled");
-  app.use(delayMiddleware);
-}
-
+// unauthenticated routes
 app.use("/", userRoutes);
 app.use("/", exportRoutes);
 
@@ -48,6 +43,7 @@ app.use(globalError);
 
 db.init();
 
+const port = env.port();
 app.listen(port, () => {
   logger.info("Server Listening on PORT: " + port);
 });

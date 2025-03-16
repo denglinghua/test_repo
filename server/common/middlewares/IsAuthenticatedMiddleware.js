@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import env from "../../env.js";
 import logger from "../logger.js";
 
 export default {
@@ -41,7 +42,8 @@ export default {
     }
 
     // jwt verify method to verify the token
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    const JWTSecret = env.JWTSecret();
+    jwt.verify(token, JWTSecret, (err, user) => {
       if (err) {
         logger.error("Error while verifying token", err);
         return res.status(403).json({

@@ -1,5 +1,6 @@
 import response from "../../common/response.js";
 import jwt from "jsonwebtoken";
+import env from "../../env.js";
 
 async function login(req, res) {
   const username = req.body.username;
@@ -22,7 +23,7 @@ function createToken(username) {
     {
       username: username
     },
-    process.env.JWT_SECRET,
+    env.JWTSecret(),
     {
       expiresIn: "2h",
     }
