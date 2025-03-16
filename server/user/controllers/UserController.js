@@ -15,6 +15,7 @@ async function login(req, res) {
 }
 
 function verify(username, password) {
+  // 'error' used for testing login failure
   return username !== 'error';
 }
 

@@ -1,8 +1,10 @@
 import xlsx from "xlsx";
 import fs from "fs/promises";
 import logger from "../../common/logger.js";
-import e from "express";
 
+// save uploaded file to disk and parse it
+// it is not used in the current implementation due to compability with cloud services
+// it is more friendly for cloud services to avoid access local file system
 function parseFromFile(filePath, fileName) {
   try {
     const workbook = xlsx.readFile(filePath);
@@ -15,6 +17,8 @@ function parseFromFile(filePath, fileName) {
   }
 }
 
+// dont save the file to disk, parse it from buffer
+// TODO: memory security issue
 function parseFromBuffer(buffer, fileName) {
   try {
     const workbook = xlsx.read(buffer, { type: "buffer" });

@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken";
 import env from "../../env.js";
 import logger from "../logger.js";
 
+// Stateless Authentication (Token-Based Authentication), not cookie-based authentication
+// it suits well for RESTful APIs, which can be consumed by any client
 export default {
   check: (req, res, next) => {
     const authHeader = req.headers["authorization"];

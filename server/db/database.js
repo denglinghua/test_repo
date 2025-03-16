@@ -25,7 +25,8 @@ function init() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     `);
-
+  
+  // row_id is row index in Excel file
   db.exec(`
         CREATE TABLE IF NOT EXISTS evaluations (
         file_id TEXT,

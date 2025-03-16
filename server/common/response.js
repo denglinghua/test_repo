@@ -1,3 +1,7 @@
+// 200 includes success and error in business logic level
+// under 200 
+// 0: success
+// >0: business logic error
 function response(res, code, msg, data) {
   return res.status(200).json({
     code: code,

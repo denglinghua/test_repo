@@ -15,6 +15,7 @@ function generateUniqueFileName(file) {
   return `${fileName}-${hash}${extension}`;
 }
 
+// not used in current implementation
 const uploadStorage = multer.diskStorage({
   destination: "./uploads/",
   filename: (req, file, cb) => {
