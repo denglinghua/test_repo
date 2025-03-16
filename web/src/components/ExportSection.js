@@ -1,13 +1,17 @@
 import * as React from "react";
-import { Container, Typography, Box, Button, Link, IconButton } from "@mui/material";
+import { Container, Typography, Box, Button, Link, IconButton, Dialog, DialogTitle, DialogContent } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import CloseIcon from '@mui/icons-material/Close';
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import Chart from "./Chart";
 
 import * as g from "../utils/global";
 import api from "../utils/api";
 
 const ExportSection = ({ file }) => {
+  const [openDialog, setOpenDialog] = React.useState(false);
+
   const exportUrl = `${api.apiURL}/export/${file.fileId}`;
 
   const handleExport = () => {
@@ -55,6 +59,10 @@ const ExportSection = ({ file }) => {
     g.notifyOk("URL copied to clipboard.");
   };
 
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
+
   return (
     <Container maxWidth="md">
       <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center">
@@ -67,7 +75,7 @@ const ExportSection = ({ file }) => {
         </Button>
 
         <Typography variant="body2" mt={3}>
-        You can also download the report anytime using the following link:
+          You can also download the report anytime using the following link:
         </Typography>
 
         <Box display="flex" alignItems="center" mt={1}>
@@ -78,7 +86,28 @@ const ExportSection = ({ file }) => {
             <ContentCopyIcon fontSize="small" />
           </IconButton>
         </Box>
+        <Button color="primary" sx={{ textTransform: "none", marginTop: "1rem" }} onClick={() => setOpenDialog(true)}>
+          View score statistics charts
+        </Button>
       </Box>
+      <Dialog onClose={handleClose} open={openDialog}>
+        <DialogTitle sx={{ textAlign: "center" }}>Score Distribution</DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={(theme) => ({
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: theme.palette.grey[500],
+          })}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent dividers>
+          <Chart />
+        </DialogContent>
+      </Dialog>
     </Container>
   );
 };

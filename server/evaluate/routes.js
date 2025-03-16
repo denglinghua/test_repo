@@ -39,4 +39,6 @@ router.post(
   evaluateController.evaluate
 );
 
+router.get("/stats", evaluateController.stats);
+
 export default router;

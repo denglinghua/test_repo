@@ -23,7 +23,7 @@ const App = () => {
   const loading = useLoadingStore((state) => state.loading);
 
   const checkAuth = () => {
-    const noAuthRoutes = ["/", "/error"];
+    const noAuthRoutes = ["", "error"].map((route) => `/${route}`);
     const isNoAuthRoute = noAuthRoutes.includes(window.location.pathname);
     if (!isNoAuthRoute && !username) {
       gotoLogin();

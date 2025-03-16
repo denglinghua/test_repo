@@ -51,8 +51,18 @@ async function exportExcel(req, res) {
   res.send(buffer);
 }
 
+async function stats(req, res) {
+  const data = db.getStastics();
+  const result = {
+    accuracy: data.accuracy.map((row) => Object.values(row)),
+    quality: data.quality.map((row) => Object.values(row)),
+  };
+  response.ok(res, "Stastics retrieved successfully", result);
+}
+
 export default {
   upload,
   evaluate,
   exportExcel,
+  stats,
 };

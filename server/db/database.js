@@ -118,10 +118,30 @@ function getEvaluations(fileId) {
   return rows;
 }
 
+function getStastics() {
+  const db = open();
+  // accuracy_rating == 0 means not evaluated after upload
+  const accuracyRows = db
+    .prepare("SELECT accuracy_rating, count(*) FROM evaluations WHERE accuracy_rating > 0 GROUP BY accuracy_rating")
+    .all();
+
+  const qualityRows = db
+    .prepare("SELECT quality_rating, count(*) FROM evaluations WHERE quality_rating > 0 GROUP BY quality_rating")
+    .all();
+
+  close(db);
+
+  return {
+    accuracy: accuracyRows,
+    quality: qualityRows,
+  };
+}
+
 export default {
   init,
   insertFile,
   getFile,
   updateEvaluation,
   getEvaluations,
+  getStastics,
 };
