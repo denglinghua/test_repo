@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Container, Typography, Box, Button, Link, IconButton } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import BarChartIcon from '@mui/icons-material/BarChart';
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import ChartDialog from "./ChartDialog";
@@ -85,7 +86,7 @@ const ExportSection = ({ file }) => {
             <ContentCopyIcon fontSize="small" />
           </IconButton>
         </Box>
-        <Button color="primary" sx={{ textTransform: "none", marginTop: "1rem" }} onClick={() => setOpenDialog(true)}>
+        <Button startIcon={<BarChartIcon/>} color="primary" sx={{ textTransform: "none", marginTop: "1rem" }} onClick={() => setOpenDialog(true)}>
           View score statistics charts
         </Button>
       </Box>
