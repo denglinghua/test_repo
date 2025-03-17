@@ -67,8 +67,8 @@ function genMockData(data) {
   if (data.accuracy.length >= 4) {
     return;
   }
-  data.accuracy = [1, 2, 3, 4, 5].map((item) => [item, Math.floor(Math.random() * 10 * item)]);
-  data.quality = [1, 2, 3, 4, 5].map((item) => [item, Math.floor(Math.random() * 100 * item)]);
+  data.accuracy = [1, 2, 3, 4, 5].map((item) => [item, Math.ceil(Math.random() * 100 * item)]);
+  data.quality = [1, 2, 3, 4, 5].map((item) => [item, Math.ceil(Math.random() * 100 * item)]);
 }
 
 export default {
