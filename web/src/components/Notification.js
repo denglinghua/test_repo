@@ -14,17 +14,26 @@ const Notification = () => {
     clearNotification();
   };
 
-  return (
-    <Snackbar
-      open={!!notification}
-      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      autoHideDuration={3000}
-      onClose={handleClose}
-    >
+  let content = <div></div>;
+  if (notification) {
+    content = (
       <Alert onClose={handleClose} severity={notificationType} sx={{ width: "100%" }}>
         {notification}
       </Alert>
-    </Snackbar>
+    );
+  }
+
+  return (
+    (
+      <Snackbar
+        open={!!notification}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        {content}
+      </Snackbar>
+    )
   );
 };
 

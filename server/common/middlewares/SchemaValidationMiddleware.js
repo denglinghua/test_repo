@@ -1,6 +1,5 @@
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
-import response from "../response.js";
 
 const ajv = new Ajv();
 addFormats(ajv);
@@ -28,8 +27,8 @@ export default {
         return next();
       }
 
-      return response.error(res, 400, "Invalid request data", {
-        error: `Invalid Payload: ${ajv.errorsText(validate.errors)}`,
+      res.status(400).json({
+        error: `Bad request - invalid payload: ${ajv.errorsText(validate.errors)}`,
       });
     };
   },

@@ -1,4 +1,5 @@
 import axios from "axios";
+import useLoadingStore from "../stores/loadingStore";
 import * as g from "./global";
 
 const isDev = process.env.NODE_ENV === "development";
@@ -51,6 +52,7 @@ function request(method, url, param = null) {
           handleErrStatus(err.response.status);
         }
         logResponseError(err);
+        tryCloseLoading();
         g.notifyError("server error");
       });
   });
@@ -77,6 +79,12 @@ function handleErrStatus(status) {
 
 function logResponseError(err) {
   console.error("↓ * ", err);
+}
+
+function tryCloseLoading() {
+  if (useLoadingStore.getState().loading) {
+    g.setLoading(false);
+  }
 }
 
 function handleUnLogin() {
