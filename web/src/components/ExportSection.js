@@ -1,17 +1,13 @@
 import * as React from "react";
 import { Container, Typography, Box, Button, Link, IconButton } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import BarChartIcon from '@mui/icons-material/BarChart';
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-import ChartDialog from "./ChartDialog";
 
 import * as g from "../utils/global";
 import api from "../utils/api";
 
 const ExportSection = ({ file }) => {
-  const [openDialog, setOpenDialog] = React.useState(false);
-
   const exportUrl = `${api.apiURL}/export/${file.fileId}`;
 
   const handleExport = () => {
@@ -59,10 +55,6 @@ const ExportSection = ({ file }) => {
     g.notifyOk("URL copied to clipboard.");
   };
 
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
-
   return (
     <Container maxWidth="md">
       <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center">
@@ -86,11 +78,7 @@ const ExportSection = ({ file }) => {
             <ContentCopyIcon fontSize="small" />
           </IconButton>
         </Box>
-        <Button startIcon={<BarChartIcon/>} color="primary" sx={{ textTransform: "none", marginTop: "1rem" }} onClick={() => setOpenDialog(true)}>
-          View score statistics charts
-        </Button>
       </Box>
-      <ChartDialog open={openDialog} onClose={handleClose} />
     </Container>
   );
 };

@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  AppBar,
-  Toolbar,
-  CssBaseline,
-  IconButton,
-} from "@mui/material";
-import LogoutIcon from '@mui/icons-material/ExitToAppOutlined';
+import { Box, Container, Typography, AppBar, Toolbar, CssBaseline, IconButton } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/ExitToAppOutlined";
 import { BrowserRouter as Router } from "react-router-dom";
 import useUserStore from "./stores/userStore";
 import useLoadingStore from "./stores/loadingStore";
@@ -16,6 +8,7 @@ import "./styles/App.css";
 import AppRoutes from "./routes";
 import Loading from "./components/Loading";
 import Notification from "./components/Notification";
+import NavTabs from "./components/NavTabs";
 
 const App = () => {
   const username = useUserStore((state) => state.username);
@@ -51,17 +44,15 @@ const App = () => {
               Radiology Report Evaluation Tool
             </Typography>
             {username && (
-              <Box display="flex" alignItems="center">
-                <Typography variant="h6">Welcome, {username}</Typography>
-                <IconButton
-                  color="inherit"
-                  size="large"
-                  onClick={handleLogout}
-                  aria-label="logout"
-                >
-                  <LogoutIcon fontSize="inherit" />
-                </IconButton>
-              </Box>
+              <>
+                <NavTabs />
+                <Box display="flex" alignItems="center" ml={3}>
+                  <Typography variant="h6">Welcome, {username}</Typography>
+                  <IconButton color="inherit" size="large" onClick={handleLogout} aria-label="logout">
+                    <LogoutIcon fontSize="inherit" />
+                  </IconButton>
+                </Box>
+              </>
             )}
           </Toolbar>
         </AppBar>

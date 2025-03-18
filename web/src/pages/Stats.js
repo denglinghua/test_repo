@@ -1,9 +1,9 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
+import { Container, Box, Grid2, Typography } from "@mui/material";
 import ReactECharts from "echarts-for-react";
 import * as g from "../utils/global";
 
-export default function Chart() {
+export default function Stats() {
   const [data, setData] = React.useState({ accuracy: [], quality: [] });
 
   React.useEffect(() => {
@@ -37,7 +37,7 @@ export default function Chart() {
       series: [
         {
           type: "pie",
-          radius: '50%',
+          radius: "50%",
           avoidLabelOverlap: false,
           itemStyle: {
             borderColor: "#fff",
@@ -47,7 +47,7 @@ export default function Chart() {
             color: "inherit",
             fontSize: 14,
             fontStyle: "bold",
-            formatter: '{b}: {d}%',
+            formatter: "{b}: {d}%",
           },
           data: series,
         },
@@ -57,10 +57,34 @@ export default function Chart() {
     return option;
   };
 
+  const chartStyle = { width: "400px", height: "360px" };
+
   return (
-    <Box sx={{ width: "480px", height: "600px" }}>
-      <ReactECharts option={getOption('Clinical Accuracy', data.accuracy)} notMerge={true} lazyUpdate={true} />
-      <ReactECharts option={getOption('Overall Quality', data.quality)} notMerge={true} lazyUpdate={true} />
-    </Box>
+    <Container>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <h2>Score Distribution</h2>
+      </Box>
+      <Grid2 container justifyContent="center" alignItems="center" spacing={6} mt={2}>
+        <Grid2 item>
+          <ReactECharts
+            option={getOption("Clinical Accuracy", data.accuracy)}
+            notMerge={true}
+            lazyUpdate={true}
+            style={chartStyle}
+          />
+        </Grid2>
+        <Grid2 item>
+          <ReactECharts
+            option={getOption("Overall Quality", data.quality)}
+            notMerge={true}
+            lazyUpdate={true}
+            style={chartStyle}
+          />
+        </Grid2>
+      </Grid2>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Typography variant="caption">The data is based on the evaluation of all uploaded files.</Typography>
+      </Box>
+    </Container>
   );
 }
