@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Container, Typography, Box, Button, Link, IconButton } from "@mui/material";
+import { Stack, Typography, Button, Link, IconButton } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
@@ -56,30 +56,29 @@ const ExportSection = ({ file }) => {
   };
 
   return (
-    <Container maxWidth="md">
-      <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="center">
-        <Typography variant="body1" gutterBottom style={{ marginBottom: "2rem" }}>
+    <Stack spacing={4}>
+      <Stack spacing={2}>
+        <Typography variant="body1">
           All records have been successfully scored. You can now export the results.
         </Typography>
 
         <Button variant="contained" color="primary" sx={{ width: "200px" }} onClick={handleExport}>
           Export to Excel
         </Button>
+      </Stack>
 
-        <Typography variant="body2" mt={3}>
-          You can also download the report anytime using the following link:
-        </Typography>
-
-        <Box display="flex" alignItems="center" mt={1}>
-          <Link href={exportUrl} target="_blank" rel="noopener" sx={{ marginRight: "0.5rem" }}>
+      <Stack>
+        <Typography variant="body2">You can also download the report anytime using the following link:</Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Link href={exportUrl} target="_blank">
             {exportUrl}
           </Link>
           <IconButton color="#d3d3d3" onClick={handleCopyToClipboard}>
             <ContentCopyIcon fontSize="small" />
           </IconButton>
-        </Box>
-      </Box>
-    </Container>
+        </Stack>
+      </Stack>
+    </Stack>
   );
 };
 

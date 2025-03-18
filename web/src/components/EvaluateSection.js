@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Container, Typography, Box, LinearProgress, Button, Rating, Divider, FormControl } from "@mui/material";
+import { Typography, Box, Stack, LinearProgress, Button, Rating, Divider, FormControl } from "@mui/material";
 import * as g from "../utils/global";
 
 const EvaluateSection = ({ file, onComplete }) => {
@@ -77,8 +77,8 @@ const EvaluateSection = ({ file, onComplete }) => {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={1}>
+    <Stack>
+      <Box display="flex" justifyContent="center" mt={1}>
         <Typography variant="h5" gutterBottom>
           Evaluate
         </Typography>
@@ -94,37 +94,31 @@ const EvaluateSection = ({ file, onComplete }) => {
           },
         }}
       />
-      <Box>
-        {rows.length > 0 && (
-          <Box>
-            <Box display="flex" justifyContent="center" mt={1}>
-              <Typography>
-                {rowIndex + 1} / {total}
-              </Typography>
-            </Box>
-            <Box mt={1} mb={1}>
-              {["Findings", "Impression A", "Impression B", "Reason For Exam"].map((key) => (
-                <React.Fragment key={key}>
-                  <Typography variant="body1" gutterBottom>
-                    <strong>{key}</strong>
-                  </Typography>
-                  <Typography variant="body2" gutterBottom style={{ whiteSpace: "pre-line" }}>
-                    {curRow[key]}
-                  </Typography>
-                </React.Fragment>
-              ))}
-              <Box display="flex">
-                {["Ethnicity", "Gender", "Age"].map((key) => (
-                  <Typography variant="body1" gutterBottom key={key} mr={3}>
-                    <strong>{key}: </strong>
-                    {curRow[key]}
-                  </Typography>
-                ))}
-              </Box>
-            </Box>
-          </Box>
-        )}
+      <Box display="flex" justifyContent="center" mt={1}>
+        <Typography>
+          {rowIndex + 1} / {total}
+        </Typography>
       </Box>
+      <Stack mb={1} spacing={1}>
+        {["Findings", "Impression A", "Impression B", "Reason For Exam"].map((key) => (
+          <Stack key={key}>
+            <Typography variant="body1" gutterBottom>
+              <strong>{key}</strong>
+            </Typography>
+            <Typography variant="body2" gutterBottom style={{ whiteSpace: "pre-line" }}>
+              {curRow[key]}
+            </Typography>
+          </Stack>
+        ))}
+        <Stack direction="row" spacing={3}>
+          {["Ethnicity", "Gender", "Age"].map((key) => (
+            <Typography variant="body1" gutterBottom key={key}>
+              <strong>{key}: </strong>
+              {curRow[key]}
+            </Typography>
+          ))}
+        </Stack>
+      </Stack>
       <Divider />
       <FormControl error={!!error}>
         {error && (
@@ -133,7 +127,7 @@ const EvaluateSection = ({ file, onComplete }) => {
           </Typography>
         )}
       </FormControl>
-      <Box display="flex" justifyContent="left">
+      <Stack direction="row" justifyContent="left" mt={1}>
         <Typography gutterBottom>
           <strong>Clinical Accuracy:</strong>
         </Typography>
@@ -154,9 +148,9 @@ const EvaluateSection = ({ file, onComplete }) => {
             setQualityRating(newValue);
           }}
         />
-      </Box>
-      <Box>
-        <Typography gutterBottom>
+      </Stack>
+      <Stack spacing={1}>
+        <Typography>
           <strong>Comment:</strong>
         </Typography>
         <textarea
@@ -167,16 +161,16 @@ const EvaluateSection = ({ file, onComplete }) => {
           cols="64"
           placeholder="Enter your comment here..."
         />
-      </Box>
-      <Box display="flex" justifyContent="space-between" width="100%" mt={2}>
+      </Stack>
+      <Stack direction="row" justifyContent="space-between" width="100%" mt={1}>
         <Button variant="contained" color="secondary" onClick={handlePrevious} disabled={rowIndex === 0}>
           Previous
         </Button>
         <Button variant="contained" color="secondary" onClick={handleNext} disabled={rowIndex === total}>
           {nextButtonTitle}
         </Button>
-      </Box>
-    </Container>
+      </Stack >
+    </Stack>
   );
 };
 

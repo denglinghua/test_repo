@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Typography, AppBar, Toolbar, CssBaseline, IconButton } from "@mui/material";
+import { Stack, Container, Typography, AppBar, Toolbar, CssBaseline, IconButton } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/ExitToAppOutlined";
 import { BrowserRouter as Router } from "react-router-dom";
 import useUserStore from "./stores/userStore";
@@ -46,12 +46,12 @@ const App = () => {
             {username && (
               <>
                 <NavTabs />
-                <Box display="flex" alignItems="center" ml={3}>
+                <Stack direction="row" alignItems="center" ml={3}>
                   <Typography variant="h6">Welcome, {username}</Typography>
                   <IconButton color="inherit" size="large" onClick={handleLogout} aria-label="logout">
                     <LogoutIcon fontSize="inherit" />
                   </IconButton>
-                </Box>
+                </Stack>
               </>
             )}
           </Toolbar>

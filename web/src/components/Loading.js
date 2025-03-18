@@ -3,7 +3,7 @@ import { Backdrop, CircularProgress } from "@mui/material";
 
 const Loading = ({ open }) => {
   return (
-    <Backdrop sx={{ color: '#f0f0f0', zIndex: (theme) => theme.zIndex.modal + 1 }} open={open}>
+    <Backdrop sx={{ color: '#f0f0f0', zIndex: (theme) => theme.zIndex.snackbar + 1 }} open={open}>
       <CircularProgress color="inherit" />
     </Backdrop>
   );

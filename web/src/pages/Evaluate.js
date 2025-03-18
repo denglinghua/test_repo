@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Container, Box, IconButton, Tooltip } from "@mui/material";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { Stack, IconButton, Tooltip } from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import UploadSection from "../components/UploadSection";
 import EvaluateSection from "../components/EvaluateSection";
 import ExportSection from "../components/ExportSection";
@@ -40,43 +40,23 @@ const Evaluate = () => {
     setFileInfo([]);
   };
 
+  const sections = {
+    upload: <UploadSection onComplete={handleUploadComplete} />,
+    evaluate: <EvaluateSection file={fileInfo} onComplete={handleEvaluationComplete} />,
+    export: <ExportSection file={fileInfo} />,
+  };
+
   return (
-    <Container>
-      <Box
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="80vh"
-      >
-        {currentStep !== "upload" && (
-          <Tooltip title="Upload another file" placement="bottom">
-            <IconButton onClick={handleGotoUpload}>
-              <CloudUploadIcon style={{ fontSize: 40 }} />
-            </IconButton>
-          </Tooltip>
-        )}
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-        >
-          {currentStep === "upload" && (
-            <UploadSection onComplete={handleUploadComplete} />
-          )}
-
-          {currentStep === "evaluate" && (
-            <EvaluateSection
-              file={fileInfo}
-              onComplete={handleEvaluationComplete}
-            />
-          )}
-
-          {currentStep === "export" && <ExportSection file={fileInfo} />}
-        </Box>
-      </Box>
-    </Container>
+    <Stack direction="row" alignItems="center" justifyContent="center" minHeight="80vh" spacing={2}>
+      {currentStep !== "upload" && (
+        <Tooltip title="Upload another file" placement="bottom">
+          <IconButton onClick={handleGotoUpload}>
+            <CloudUploadIcon style={{ fontSize: 40 }} />
+          </IconButton>
+        </Tooltip>
+      )}
+      {sections[currentStep]}
+    </Stack>
   );
 };
 

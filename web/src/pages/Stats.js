@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Container, Box, Grid2, Typography } from "@mui/material";
+import { Stack, Box, Typography } from "@mui/material";
 import ReactECharts from "echarts-for-react";
 import * as g from "../utils/global";
 
@@ -60,31 +60,27 @@ export default function Stats() {
   const chartStyle = { width: "400px", height: "360px" };
 
   return (
-    <Container>
+    <Stack spacing={2}>
       <Box display="flex" justifyContent="center" alignItems="center">
         <h2>Score Distribution</h2>
       </Box>
-      <Grid2 container justifyContent="center" alignItems="center" spacing={6} mt={2}>
-        <Grid2 item>
-          <ReactECharts
-            option={getOption("Clinical Accuracy", data.accuracy)}
-            notMerge={true}
-            lazyUpdate={true}
-            style={chartStyle}
-          />
-        </Grid2>
-        <Grid2 item>
-          <ReactECharts
-            option={getOption("Overall Quality", data.quality)}
-            notMerge={true}
-            lazyUpdate={true}
-            style={chartStyle}
-          />
-        </Grid2>
-      </Grid2>
+      <Stack direction="row" justifyContent="center" spacing={6}>
+        <ReactECharts
+          option={getOption("Clinical Accuracy", data.accuracy)}
+          notMerge={true}
+          lazyUpdate={true}
+          style={chartStyle}
+        />
+        <ReactECharts
+          option={getOption("Overall Quality", data.quality)}
+          notMerge={true}
+          lazyUpdate={true}
+          style={chartStyle}
+        />
+      </Stack>
       <Box display="flex" justifyContent="center" alignItems="center">
         <Typography variant="caption">The data is based on the evaluation of all uploaded files.</Typography>
       </Box>
-    </Container>
+    </Stack>
   );
 }
