@@ -25,11 +25,16 @@ const EvaluateSection = ({ file, onComplete }) => {
   }, [rowIndex, rows]);
 
   const checkRating = () => {
-    if (accuracyRating === 0 || qualityRating === 0) {
+    if (isRatingNull(accuracyRating) || isRatingNull(qualityRating)) {
       setError("Please score the accuracy and quality before moving on.");
       return false;
     }
     return true;
+  };
+
+  const isRatingNull = (rating) => {
+    // rating component will return null when the user clicks on the current rating
+    return rating === 0 || rating === null;
   };
 
   const handleNext = () => {
@@ -65,7 +70,9 @@ const EvaluateSection = ({ file, onComplete }) => {
       console.log("No change in evaluation");
       return;
     }
-    curRow.evaluation = { accuracyRating, qualityRating, comment };
+    const ar = isRatingNull(accuracyRating) ? 0 : accuracyRating;
+    const qr = isRatingNull(qualityRating) ? 0 : qualityRating;
+    curRow.evaluation = { accuracyRating : ar, qualityRating: qr, comment };
     saveEvaluation();
   };
 
