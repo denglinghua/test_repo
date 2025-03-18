@@ -91,6 +91,7 @@
       <DependentUpon>ExportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormBase.cs" />
+    <Compile Include="Forms\FormConfig.cs" />
     <Compile Include="Forms\LoginForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
